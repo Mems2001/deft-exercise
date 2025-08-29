@@ -4,7 +4,7 @@ import { ComponentFunction } from "../models/components.models";
 export const LoginPage:ComponentFunction = () => {
     const component = ComponentFactory.createComponent('LoginPage', 'div')
 
-    component.addContainerHtml(component.component, 'p', 'LoginPage')
+    component.addContainerHtml(component.component, 'p').setText('LoginPage').build()
 
     return component
 }

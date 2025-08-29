@@ -1,4 +1,4 @@
-import { FormBuilder } from "./pseudoHtml.models"
+import { AnchorBuilder, ButtonBuilder, ContainerBuiler, FormBuilder, TitleBuilder } from "./index"
 
     export type Props = Record<string, any>
     export type MainTag = keyof HTMLElementTagNameMap 
@@ -31,95 +31,55 @@ import { FormBuilder } from "./pseudoHtml.models"
     }
 
     /**
-     * Creates a simple html title element as h1 and its brothers. This element can not contain other html elements.
-     * @param {HTMLElement} father The html element where you need to append the title.
-     * @param {TitleTag} mainTag The html element tag, one of the "h" tags. 
-     * @param {string} text_content The title's text.
-     * @param {string} class_name A string chain that contains your pretended classes for the element.
-     * @param {string} id The id for the element.
-     * @param {string} key A string to track the element within programatically generated collections of the same element. (Ex: When dynamically generating divs to display an array of strings)
-     * @returns A Title html element.
-     */
-    addTitleHtml(father: HTMLElement, mainTag: TitleTag, text_content:string = '', class_name?: string, id?: string, key?: string) {
-        const newTitle = document.createElement(mainTag)
-        newTitle.textContent = text_content
-        if (class_name) newTitle.className = class_name
-        if (id) newTitle.id = id
-        if (key) newTitle.dataset.key = key
-
-        father.appendChild(newTitle)
-
-        return newTitle
-    }
-
-    /**
-     * Use this method to create container-like html element such as div, section, span, even p or similar. 
+     * Use this to create a title-like html element such as h1 and its brothers. This method returns a Builder you can use to add new attributes to the html element. Finish the declaration with .build() to append the element to its father. You can also use .element after that to get the html element if needed.
      * @param {HTMLElement} father Specify the html element in wich you'll append the requested element.
      * @param {containerTag} mainTag The html tag you pretend to give to the new element.
-     * @param {string} text_content Any text you want inside your new element.
-     * @param {string} class_name A string chain that contains your pretended classes for the element.
-     * @param {string} id The id for the element.
-     * @param {string} key A string to track the element within programatically generated collections of the same element. (Ex: When dynamically generating divs to display an array of strings)
-     * @returns The created html element, wich you can use to nest more elements inside.
+     * @returns {TitleBuilder} A ContainerBuilder object, use .build() to create the element.
      */
-    addContainerHtml(father: HTMLElement, mainTag: ContainerTag, text_content?: string, class_name?: string, id?: string, key?:string):HTMLElement {
-        const newHtmlElement: HTMLElement = document.createElement(mainTag)
-        if (class_name) newHtmlElement.className = class_name
-        if (id) newHtmlElement.id = id
-        if (text_content) newHtmlElement.textContent = text_content
-        if (key) newHtmlElement.dataset.key = key
+    addTitleHtml(father: HTMLElement, mainTag: TitleTag):TitleBuilder {
+        const newTitleBuilder = new TitleBuilder(mainTag, father)
 
-        father.appendChild(newHtmlElement)
-
-        return newHtmlElement
+        return newTitleBuilder
     }
 
     /**
-     * Creates an Anchor html element for navigation. 
-     * @param {HTMLElement} father 
-     * @param {string} text_content 
-     * @param {string} ref 
-     * @param {AnchorTarget} target 
-     * @param {string} class_name 
-     * @param {string} id 
-     * @param {string} key 
-     * @returns {HTMLAnchorElement} The Anchor html element itself.
+     * Use this to create a container-like html element such as div, section, article or p. This method returns a Builder you can use to add new attributes to the html element. Finish the declaration with .build() to append the element to its father. You can also use .element after that to get the html element if needed.
+     * @param {HTMLElement} father Specify the html element in wich you'll append the requested element.
+     * @param {containerTag} mainTag The html tag you pretend to give to the new element.
+     * @returns {ContainerBuiler} A ContainerBuilder object, use .build() to create the element.
      */
-    addNavLink(father: HTMLElement, text_content?:string, ref?:string, target: AnchorTarget = "_self", class_name?:string, id?:string, key?:string): HTMLAnchorElement {
-        const newNavLink: HTMLAnchorElement = document.createElement('a')
-        newNavLink.target = target
-        if (text_content) newNavLink.textContent = text_content
-        if (ref) newNavLink.href = ref
-        if (class_name) newNavLink.className = class_name
-        if (id) newNavLink.id = id
-        if (key) newNavLink.dataset.key = key
+    addContainerHtml(father: HTMLElement, mainTag: ContainerTag):ContainerBuiler {
+        const newHtmlBuilder = new ContainerBuiler(mainTag, father)
 
-        father.appendChild(newNavLink)
+        return newHtmlBuilder
+    }
+
+    /**
+     * Use this to create an anchor html element. This method returns a Builder you can use to add new attributes to the html element. Finish the declaration with .build() to append the element to its father. You can also use .element after that to get the html element if needed.
+     * @param {HTMLElement} father Specify the html element in wich you'll append the requested element.
+     * @returns {AnchorBuilder} A ContainerBuilder object, use .build() to create the element.
+     */
+    addNavLink(father: HTMLElement): AnchorBuilder {
+        const newNavLink = new AnchorBuilder(father)
 
         return newNavLink
     }
 
-    addButtonHtml(father: HTMLElement, type: ButtonType = "button", text_content:string = '', clickAction:ButtonFunction, disabled:boolean = false, class_name?: string, id?: string, key?:string): HTMLButtonElement {
-        const newHtmlButton: HTMLButtonElement = document.createElement("button")
-        if (class_name) newHtmlButton.className = class_name
-        if (id) newHtmlButton.id = id
-        if (text_content) newHtmlButton.textContent = text_content
-        if (key) newHtmlButton.dataset.key = key
-        newHtmlButton.disabled = disabled
-        newHtmlButton.type = type
-        if (clickAction) newHtmlButton.onclick = clickAction
-
-        father.appendChild(newHtmlButton)
-
-        return newHtmlButton
+    /**
+     * Use this to create a button html element. This method returns a Builder you can use to add new attributes to the html element. Finish the declaration with .build() to append the element to its father. You can also use .element after that to get the html element if needed.
+     * @param {HTMLElement} father Specify the html element in wich you'll append the requested element.
+     * @returns {AnchorBuilder} A ContainerBuilder object, use .build() to create the element.
+     */
+    addButtonHtml(father: HTMLElement): ButtonBuilder {
+        const newButtonBuilder = new ButtonBuilder(father)
+        
+        return newButtonBuilder
     }
 
-    addForm() {
-        const newForm = new FormBuilder('form').build()
+    addForm(father: HTMLElement) {
+        const newFormBuilder = new FormBuilder(father).setClassName('xd').build()
 
-        this.component.appendChild(newForm.element!)
-
-        return newForm.element
+        return newFormBuilder
     }
 
     /** Lifecycle hook: called when component is first created */
