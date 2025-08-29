@@ -1,3 +1,4 @@
+import { FormBuilder } from "./pseudoHtml.models.js";
 export class Component {
     constructor(name, mainTag, props) {
         this.props = props;
@@ -58,6 +59,33 @@ export class Component {
         father.appendChild(newHtmlElement);
         return newHtmlElement;
     }
+    /**
+     * Creates an Anchor html element for navigation.
+     * @param {HTMLElement} father
+     * @param {string} text_content
+     * @param {string} ref
+     * @param {AnchorTarget} target
+     * @param {string} class_name
+     * @param {string} id
+     * @param {string} key
+     * @returns {HTMLAnchorElement} The Anchor html element itself.
+     */
+    addNavLink(father, text_content, ref, target = "_self", class_name, id, key) {
+        const newNavLink = document.createElement('a');
+        newNavLink.target = target;
+        if (text_content)
+            newNavLink.textContent = text_content;
+        if (ref)
+            newNavLink.href = ref;
+        if (class_name)
+            newNavLink.className = class_name;
+        if (id)
+            newNavLink.id = id;
+        if (key)
+            newNavLink.dataset.key = key;
+        father.appendChild(newNavLink);
+        return newNavLink;
+    }
     addButtonHtml(father, type = "button", text_content = '', clickAction, disabled = false, class_name, id, key) {
         const newHtmlButton = document.createElement("button");
         if (class_name)
@@ -74,6 +102,11 @@ export class Component {
             newHtmlButton.onclick = clickAction;
         father.appendChild(newHtmlButton);
         return newHtmlButton;
+    }
+    addForm() {
+        const newForm = new FormBuilder('form').build();
+        this.component.appendChild(newForm.element);
+        return newForm.element;
     }
     /** Lifecycle hook: called when component is first created */
     onInit() {

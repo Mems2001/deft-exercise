@@ -1,16 +1,19 @@
+import { FormBuilder } from "./pseudoHtml.models"
+
     export type Props = Record<string, any>
     export type MainTag = keyof HTMLElementTagNameMap 
     export type ContainerTag = Extract<MainTag, | "div" | "section" | "article" | "p">
     export type ButtonTag = Extract<MainTag, "button">
     export type TitleTag = Extract<MainTag, | "h1" | "h2" | "h3" | "h4">
     export type ButtonFunction = ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null
-    export type AnchorTarget = "_self" | "_blank" | "_parent" | "_top"
+    export type ButtonType = "button" | "submit" | "reset"
+    export type AnchorTarget = "_self" | "_blank" | "_parent" | "_top" | (string & {})
 
-    export class Component {
-    protected props?: Props
+    export class Component<TProps extends Props = {}> {
+    protected props?: TProps
     public component: HTMLElement
 
-    constructor(name: string, mainTag: MainTag, props?: Props ) {
+    constructor(name: string, mainTag: MainTag, props?: TProps ) {
         this.props = props
         this.onInit()
         this.component = this.render(name, mainTag)
@@ -71,6 +74,17 @@
         return newHtmlElement
     }
 
+    /**
+     * Creates an Anchor html element for navigation. 
+     * @param {HTMLElement} father 
+     * @param {string} text_content 
+     * @param {string} ref 
+     * @param {AnchorTarget} target 
+     * @param {string} class_name 
+     * @param {string} id 
+     * @param {string} key 
+     * @returns {HTMLAnchorElement} The Anchor html element itself.
+     */
     addNavLink(father: HTMLElement, text_content?:string, ref?:string, target: AnchorTarget = "_self", class_name?:string, id?:string, key?:string): HTMLAnchorElement {
         const newNavLink: HTMLAnchorElement = document.createElement('a')
         newNavLink.target = target
@@ -85,7 +99,7 @@
         return newNavLink
     }
 
-    addButtonHtml(father: HTMLElement, type: any = "button", text_content:string = '', clickAction:ButtonFunction, disabled:boolean = false, class_name?: string, id?: string, key?:string): HTMLButtonElement {
+    addButtonHtml(father: HTMLElement, type: ButtonType = "button", text_content:string = '', clickAction:ButtonFunction, disabled:boolean = false, class_name?: string, id?: string, key?:string): HTMLButtonElement {
         const newHtmlButton: HTMLButtonElement = document.createElement("button")
         if (class_name) newHtmlButton.className = class_name
         if (id) newHtmlButton.id = id
@@ -98,6 +112,14 @@
         father.appendChild(newHtmlButton)
 
         return newHtmlButton
+    }
+
+    addForm() {
+        const newForm = new FormBuilder('form').build()
+
+        this.component.appendChild(newForm.element!)
+
+        return newForm.element
     }
 
     /** Lifecycle hook: called when component is first created */
@@ -116,7 +138,7 @@
     }
 
     /** Updates the component, e.g., after props change and re-renders in the same parent */
-    update(newProps: Props) {
+    update(newProps: TProps) {
         this.props = { ...this.props, ...newProps };
         this.mount(this.component.parentElement!);
     }
