@@ -1,0 +1,4 @@
+{"scripts": {
+    "compile-replace": "tsc && node util/replace-import-extensions.js",
+    "dev": "bun compile-replace && node server.js"
+}}

@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES6",         // JS version the browser will understand
+    "module": "ES6",         // Use ES modules (import/export)
+    "outDir": "dist",        // Compiled JS files go here
+    "strict": true,          // Enable strict type-checking
+    "esModuleInterop": true, // Makes default imports compatible
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true
+  },
+  "include": ["UI/**/*"]         // Only compile files in the src folder
+}
