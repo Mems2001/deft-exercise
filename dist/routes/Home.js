@@ -6,6 +6,7 @@ export const Home = () => {
         // e.preventDefault()
         Router.navigate('/login');
     };
+    component.addTitleHtml(component.component, 'h1', "Hello pal", "main-title");
     const loginButton = component.addButtonHtml(component.component, "button", "Log In", navigateToConsole, false, 'login-btn');
     return component;
 };

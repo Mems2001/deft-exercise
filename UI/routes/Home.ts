@@ -10,6 +10,8 @@ export const Home: ComponentFunction = () => {
         Router.navigate('/login')
     }
 
+    component.addTitleHtml(component.component, 'h1', "Hello pal", "main-title")
+
     const loginButton = component.addButtonHtml(component.component, "button", "Log In", navigateToConsole, false, 'login-btn')
 
     return component

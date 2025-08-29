@@ -14,6 +14,28 @@ export class Component {
         return component;
     }
     /**
+     * Creates a simple html title element as h1 and its brothers. This element can not contain other html elements.
+     * @param {HTMLElement} father The html element where you need to append the title.
+     * @param {TitleTag} mainTag The html element tag, one of the "h" tags.
+     * @param {string} text_content The title's text.
+     * @param {string} class_name A string chain that contains your pretended classes for the element.
+     * @param {string} id The id for the element.
+     * @param {string} key A string to track the element within programatically generated collections of the same element. (Ex: When dynamically generating divs to display an array of strings)
+     * @returns A Title html element.
+     */
+    addTitleHtml(father, mainTag, text_content = '', class_name, id, key) {
+        const newTitle = document.createElement(mainTag);
+        newTitle.textContent = text_content;
+        if (class_name)
+            newTitle.className = class_name;
+        if (id)
+            newTitle.id = id;
+        if (key)
+            newTitle.dataset.key = key;
+        father.appendChild(newTitle);
+        return newTitle;
+    }
+    /**
      * Use this method to create container-like html element such as div, section, span, even p or similar.
      * @param {HTMLElement} father Specify the html element in wich you'll append the requested element.
      * @param {containerTag} mainTag The html tag you pretend to give to the new element.
