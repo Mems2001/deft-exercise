@@ -1,4 +1,4 @@
-import { Anchor, AnchorTarget, Button, ButtonFunction, ButtonType, Container, ContainerTag, Form, MainTag, PseudoHtml, Title, TitleTag } from "./index"
+import { Anchor, AnchorTarget, Button, ButtonFunction, ButtonType, Container, ContainerTag, Form, FormValues, Input, InputType, MainTag, PseudoHtml, Title, TitleTag } from "./index"
 
 export abstract class Builder<T extends keyof HTMLElementTagNameMap> {
     abstract tag: T
@@ -32,7 +32,7 @@ export abstract class Builder<T extends keyof HTMLElementTagNameMap> {
         return this
     }
 
-    abstract build():PseudoHtml<HTMLElement>
+    abstract build(param?: any):PseudoHtml<HTMLElement>
 }
 
 export class TitleBuilder extends Builder<TitleTag> {
@@ -124,5 +124,62 @@ export class ButtonBuilder extends Builder<"button"> {
 
     build() {
         return new Button(this)
+    }
+}
+
+export class InputBuilder extends Builder<"input"> {
+    tag: "input" = "input"
+    name?: string
+    type: InputType = 'text'
+    required: boolean = false
+    place_holder?: string
+
+    constructor (father: Form) {
+        super(father.element)
+    }
+
+    /**
+     * Bind the input element to its father, a form.
+     * @param {Input} input
+     * @param {Form} father 
+     */
+    private register(input: Input, father: Form): void {
+        const name = this.name
+        if (!name) throw new Error("Input must have a name to be registered in a form");
+
+        // Set value in the form state
+        father.setValue(name, input.element.value);
+
+        // Listen to changes
+        input.element.addEventListener("input", () => {
+          father.setValue(name, input.element.value);
+        });
+    } 
+
+    setType(type: InputType) {
+        this.type = type
+        return this
+    }
+
+    setName(name: string) {
+        this.name = name
+        return this
+    }
+
+    setRequired(value:boolean) {
+        this.required = value
+        return this
+    }
+
+    setPlaceHolder(place_holder:string) {
+        this.place_holder = place_holder
+        return this
+    }
+
+    build(father:Form): PseudoHtml<HTMLElement> {
+        const newInput = new Input(this)
+        this.register(newInput, father)
+
+        return newInput
     }
 }

@@ -3,3 +3,4 @@ export * from './componentFactory.models.js';
 export * from './router.model.js';
 export * from './pseudoHtml.models.js';
 export * from './pseudoHtmlBuilder.models.js';
+export * from './types.models.js';

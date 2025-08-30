@@ -18,24 +18,6 @@ export class Title extends PseudoHtml {
         father.appendChild(this.element);
     }
 }
-export class Form extends PseudoHtml {
-    constructor(builder) {
-        super();
-        this.element = document.createElement(builder.tag);
-        if (builder.text_content)
-            this.element.textContent = builder.text_content;
-        if (builder.class_name)
-            this.element.className = builder.class_name;
-        if (builder.id)
-            this.element.id = builder.id;
-        if (builder.key)
-            this.element.dataset.key = builder.key;
-        this.addChild(builder.father);
-    }
-    addChild(father) {
-        father.appendChild(this.element);
-    }
-}
 export class Container extends PseudoHtml {
     constructor(builder) {
         super();
@@ -94,6 +76,65 @@ export class Button extends PseudoHtml {
         this.addChild(builder.father);
     }
     addChild(father) {
+        father.appendChild(this.element);
+    }
+}
+// ---> FORM CLASSES <---
+export class Form extends PseudoHtml {
+    constructor(builder) {
+        super();
+        this.values = {};
+        this.element = document.createElement(builder.tag);
+        if (builder.text_content)
+            this.element.textContent = builder.text_content;
+        if (builder.class_name)
+            this.element.className = builder.class_name;
+        if (builder.id)
+            this.element.id = builder.id;
+        if (builder.key)
+            this.element.dataset.key = builder.key;
+        this.addChild(builder.father);
+    }
+    addChild(father) {
+        father.appendChild(this.element);
+    }
+    getValues() {
+        return this.values;
+    }
+    setValue(name, value) {
+        this.values[name] = value;
+    }
+    onSubmit(callback) {
+        this.element.addEventListener("submit", (ev) => {
+            ev.preventDefault();
+            callback(this.getValues());
+        });
+    }
+}
+export class Input extends PseudoHtml {
+    constructor(builder) {
+        super();
+        this.element = document.createElement(builder.tag);
+        if (builder.text_content)
+            this.element.textContent = builder.text_content;
+        if (builder.class_name)
+            this.element.className = builder.class_name;
+        if (builder.id)
+            this.element.id = builder.id;
+        if (builder.key)
+            this.element.dataset.key = builder.key;
+        if (builder.place_holder)
+            this.element.placeholder = builder.place_holder;
+        if (builder.name)
+            this.element.name = builder.name;
+        this.element.type = builder.type;
+        this.element.required = builder.required;
+        this.addChild(builder.father);
+    }
+    addChild(father) {
+        if (!(father instanceof HTMLFormElement)) {
+            throw new Error("An input might always be inserted into a html form element");
+        }
         father.appendChild(this.element);
     }
 }

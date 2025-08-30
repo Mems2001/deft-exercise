@@ -1,13 +1,4 @@
-import { AnchorBuilder, ButtonBuilder, ContainerBuiler, FormBuilder, TitleBuilder } from "./index"
-
-    export type Props = Record<string, any>
-    export type MainTag = keyof HTMLElementTagNameMap 
-    export type ContainerTag = Extract<MainTag, | "div" | "section" | "article" | "p">
-    export type ButtonTag = Extract<MainTag, "button">
-    export type TitleTag = Extract<MainTag, | "h1" | "h2" | "h3" | "h4">
-    export type ButtonFunction = ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null
-    export type ButtonType = "button" | "submit" | "reset"
-    export type AnchorTarget = "_self" | "_blank" | "_parent" | "_top" | (string & {})
+import { AnchorBuilder, ButtonBuilder, ContainerBuiler, ContainerTag, Form, FormBuilder, InputBuilder, MainTag, Props, TitleBuilder, TitleTag } from "./index"
 
     export class Component<TProps extends Props = {}> {
     protected props?: TProps
@@ -72,14 +63,30 @@ import { AnchorBuilder, ButtonBuilder, ContainerBuiler, FormBuilder, TitleBuilde
      */
     addButtonHtml(father: HTMLElement): ButtonBuilder {
         const newButtonBuilder = new ButtonBuilder(father)
-        
+
         return newButtonBuilder
     }
 
-    addForm(father: HTMLElement) {
-        const newFormBuilder = new FormBuilder(father).setClassName('xd').build()
+    /**
+     * Use this to create a form html element. This method returns a Builder you can use to add new attributes to the html element. Finish the declaration with .build() to append the element to its father. You can also use .element after that to get the html element if needed.
+     * @param {HTMLElement} father Specify the html element in wich you'll append the requested element.
+     * @returns {FormBuilder} A ContainerBuilder object, use .build() to create the element.
+     */
+    addForm(father: HTMLElement):FormBuilder {
+        const newFormBuilder = new FormBuilder(father)
 
         return newFormBuilder
+    }
+
+    /**
+     * Use this to create an input html element. This method returns a Builder you can use to add new attributes to the html element. Finish the declaration with .build() to append the element to its father. You can also use .element after that to get the html element if needed.
+     * @param {Form} father Specify the html element in wich you'll append the requested element.
+     * @returns {AnchorBuilder} A ContainerBuilder object, use .build() to create the element.
+     */
+    addInput(father: Form):InputBuilder {
+        const newInputBuilder = new InputBuilder(father)
+
+        return newInputBuilder
     }
 
     /** Lifecycle hook: called when component is first created */

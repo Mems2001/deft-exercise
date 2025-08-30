@@ -1,9 +1,8 @@
-import { ComponentFactory } from "../models/componentFactory.models.js";
-import { Router } from "../models/router.model.js";
+import { ComponentFactory, Router } from "../models/index.js";
 export const Home = () => {
     const component = ComponentFactory.createComponent('Home', 'div');
     const navigateToConsole = (e) => {
-        // e.preventDefault()
+        e.preventDefault();
         Router.navigate('/login');
     };
     component.addTitleHtml(component.component, 'h1').setText('Hello Hello').setClassName('main-title').build();

@@ -25,6 +25,38 @@ body {
     gap: 3rem;
 }
 
+/* ---> LoginPage <--- */
+
+.login-container {
+    display: flex;
+    justify-content: center;
+
+    height: 60vh;
+    width: 60vw;
+
+    border: 1px solid black;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+
+    width: inherit;
+    padding: 0 2rem;
+}
+
+.login-input {
+    height: 2.5rem;
+    width: 100%;
+}
+
+.login-submit-btn {
+    height: 2.5rem;
+    width: 100%;
+}
+
 /* ---> Console <--- */
 .console-container {
     background-color: red;

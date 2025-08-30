@@ -1,13 +1,10 @@
-import { ComponentFactory } from "../models/componentFactory.models";
-import { ButtonFunction, ComponentFunction } from "../models/components.models";
-import { ContainerBuiler } from "../models/index";
-import { Router } from "../models/router.model";
+import { ButtonFunction, ComponentFunction, ComponentFactory, ContainerBuiler, Router } from "../models/index";
 
 export const Home: ComponentFunction = () => {
     const component = ComponentFactory.createComponent('Home', 'div')
 
     const navigateToConsole:ButtonFunction = (e) => {
-        // e.preventDefault()
+        e.preventDefault()
         Router.navigate('/login')
     }
 

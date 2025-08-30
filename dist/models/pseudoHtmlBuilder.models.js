@@ -1,4 +1,4 @@
-import { Anchor, Button, Container, Form, Title } from "./index.js";
+import { Anchor, Button, Container, Form, Input, Title } from "./index.js";
 export class Builder {
     constructor(father) {
         this.father = father;
@@ -86,5 +86,50 @@ export class ButtonBuilder extends Builder {
     }
     build() {
         return new Button(this);
+    }
+}
+export class InputBuilder extends Builder {
+    constructor(father) {
+        super(father.element);
+        this.tag = "input";
+        this.type = 'text';
+        this.required = false;
+    }
+    /**
+     * Bind the input element to its father, a form.
+     * @param {Input} input
+     * @param {Form} father
+     */
+    register(input, father) {
+        const name = this.name;
+        if (!name)
+            throw new Error("Input must have a name to be registered in a form");
+        // Set value in the form state
+        father.setValue(name, input.element.value);
+        // Listen to changes
+        input.element.addEventListener("input", () => {
+            father.setValue(name, input.element.value);
+        });
+    }
+    setType(type) {
+        this.type = type;
+        return this;
+    }
+    setName(name) {
+        this.name = name;
+        return this;
+    }
+    setRequired(value) {
+        this.required = value;
+        return this;
+    }
+    setPlaceHolder(place_holder) {
+        this.place_holder = place_holder;
+        return this;
+    }
+    build(father) {
+        const newInput = new Input(this);
+        this.register(newInput, father);
+        return newInput;
     }
 }

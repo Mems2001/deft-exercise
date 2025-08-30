@@ -1,4 +1,4 @@
-import { AnchorBuilder, ButtonBuilder, ContainerBuiler, FormBuilder, TitleBuilder } from "./index.js";
+import { AnchorBuilder, ButtonBuilder, ContainerBuiler, FormBuilder, InputBuilder, TitleBuilder } from "./index.js";
 export class Component {
     constructor(name, mainTag, props) {
         this.props = props;
@@ -52,9 +52,23 @@ export class Component {
         const newButtonBuilder = new ButtonBuilder(father);
         return newButtonBuilder;
     }
+    /**
+     * Use this to create a form html element. This method returns a Builder you can use to add new attributes to the html element. Finish the declaration with .build() to append the element to its father. You can also use .element after that to get the html element if needed.
+     * @param {HTMLElement} father Specify the html element in wich you'll append the requested element.
+     * @returns {FormBuilder} A ContainerBuilder object, use .build() to create the element.
+     */
     addForm(father) {
-        const newFormBuilder = new FormBuilder(father).setClassName('xd').build();
+        const newFormBuilder = new FormBuilder(father);
         return newFormBuilder;
+    }
+    /**
+     * Use this to create an input html element. This method returns a Builder you can use to add new attributes to the html element. Finish the declaration with .build() to append the element to its father. You can also use .element after that to get the html element if needed.
+     * @param {Form} father Specify the html element in wich you'll append the requested element.
+     * @returns {AnchorBuilder} A ContainerBuilder object, use .build() to create the element.
+     */
+    addInput(father) {
+        const newInputBuilder = new InputBuilder(father);
+        return newInputBuilder;
     }
     /** Lifecycle hook: called when component is first created */
     onInit() {

@@ -1,9 +1,9 @@
-import { AnchorBuilder, ButtonBuilder, ContainerBuiler, FormBuilder, TitleBuilder } from "./index"
+import { AnchorBuilder, ButtonBuilder, ContainerBuiler, FormBuilder, FormValues, InputBuilder, TitleBuilder } from "./index"
 
 export abstract class PseudoHtml<T extends HTMLElement> {
     abstract element:T
 
-    abstract addChild(father:HTMLElement):void
+    protected abstract addChild(father:T):void
 }
 
 export class Title extends PseudoHtml<HTMLElement> {
@@ -20,24 +20,6 @@ export class Title extends PseudoHtml<HTMLElement> {
     }
 
     addChild(father:HTMLElement):void {
-        father.appendChild(this.element)
-    }
-}
-
-export class Form extends PseudoHtml<HTMLFormElement> {
-    element: HTMLFormElement
-
-    constructor (builder: FormBuilder) {
-        super()
-        this.element = document.createElement(builder.tag)
-        if (builder.text_content) this.element.textContent = builder.text_content
-        if (builder.class_name) this.element.className = builder.class_name
-        if (builder.id) this.element.id = builder.id
-        if (builder.key) this.element.dataset.key = builder.key
-        this.addChild(builder.father)
-    }
-
-    addChild(father: HTMLElement): void {
         father.appendChild(this.element)
     }
 }
@@ -97,6 +79,67 @@ export class Button extends PseudoHtml<HTMLButtonElement> {
     }
 
     addChild(father: HTMLElement): void {
+        father.appendChild(this.element)
+    }
+}
+
+// ---> FORM CLASSES <---
+
+export class Form extends PseudoHtml<HTMLFormElement> {
+    element: HTMLFormElement
+    private values: FormValues = {}
+
+    constructor (builder: FormBuilder) {
+        super()
+        this.element = document.createElement(builder.tag)
+        if (builder.text_content) this.element.textContent = builder.text_content
+        if (builder.class_name) this.element.className = builder.class_name
+        if (builder.id) this.element.id = builder.id
+        if (builder.key) this.element.dataset.key = builder.key
+        this.addChild(builder.father)
+    }
+
+    addChild(father: HTMLElement): void {
+        father.appendChild(this.element)
+    }
+
+    getValues() {
+        return this.values
+    }
+
+    setValue(name: string, value: any) {
+        this.values[name] = value
+    }
+
+    onSubmit(callback: (values: FormValues) => void): void {
+    this.element.addEventListener("submit", (ev) => {
+      ev.preventDefault();
+      callback(this.getValues());
+    });
+  }
+}
+
+export class Input extends PseudoHtml<HTMLInputElement> {
+    element: HTMLInputElement
+
+    constructor (builder: InputBuilder) {
+        super()
+        this.element = document.createElement(builder.tag)
+        if (builder.text_content) this.element.textContent = builder.text_content
+        if (builder.class_name) this.element.className = builder.class_name
+        if (builder.id) this.element.id = builder.id
+        if (builder.key) this.element.dataset.key = builder.key
+        if (builder.place_holder) this.element.placeholder = builder.place_holder
+        if (builder.name) this.element.name = builder.name
+        this.element.type = builder.type
+        this.element.required = builder.required
+        this.addChild(builder.father)
+    }
+
+    addChild(father: HTMLElement): void {
+        if (!(father instanceof HTMLFormElement)) {
+            throw new Error("An input might always be inserted into a html form element")
+        }
         father.appendChild(this.element)
     }
 }
