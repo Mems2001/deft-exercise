@@ -1,6 +1,4 @@
-import { ComponentFactory, ComponentFunction, Router, ButtonFunction } from "../models/index"
-
-export const Console:ComponentFunction = () => {
+const Console:ComponentFunction = () => {
     const component = ComponentFactory.createComponent('Console', 'div')
 
     const consoleContainer = component.addContainerHtml(component, "div")
@@ -30,3 +28,5 @@ export const Console:ComponentFunction = () => {
 
     return component
 }
+
+window.Console = Console

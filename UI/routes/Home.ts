@@ -1,6 +1,4 @@
-import { ButtonFunction, ComponentFunction, ComponentFactory, ContainerBuiler, Router } from "../models/index";
-
-export const Home: ComponentFunction = () => {
+const Home: ComponentFunction = () => {
     const component = ComponentFactory.createComponent('Home', 'div')
 
     const navigateToConsole:ButtonFunction = (e) => {
@@ -18,3 +16,5 @@ export const Home: ComponentFunction = () => {
 
     return component
 }
+
+window.Home = Home

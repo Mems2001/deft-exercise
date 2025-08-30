@@ -1,6 +1,4 @@
-import { Anchor, AnchorTarget, Button, ButtonFunction, ButtonType, Component, Container, ContainerTag, Form, FormValues, Input, InputType, MainTag, PseudoHtml, Title, TitleTag } from "./index"
-
-export abstract class Builder<T extends keyof HTMLElementTagNameMap> {
+abstract class Builder<T extends keyof HTMLElementTagNameMap> {
     abstract tag: T
     father: PseudoHtml<HTMLElement> | Component
     text_content?: string
@@ -35,7 +33,7 @@ export abstract class Builder<T extends keyof HTMLElementTagNameMap> {
     abstract build(param?: any):PseudoHtml<HTMLElement>
 }
 
-export class TitleBuilder extends Builder<TitleTag> {
+class TitleBuilder extends Builder<TitleTag> {
     tag: TitleTag
 
     constructor (tag:TitleTag, father: PseudoHtml<HTMLElement> | Component) {
@@ -48,7 +46,7 @@ export class TitleBuilder extends Builder<TitleTag> {
     }
 }
 
-export class FormBuilder extends Builder<"form"> {
+class FormBuilder extends Builder<"form"> {
     tag: "form" = "form"
 
     constructor (father: PseudoHtml<HTMLElement> | Component) {
@@ -60,7 +58,7 @@ export class FormBuilder extends Builder<"form"> {
     }
 }
 
-export class ContainerBuiler extends Builder<ContainerTag> {
+class ContainerBuiler extends Builder<ContainerTag> {
     tag: ContainerTag
 
     constructor(tag: ContainerTag, father: PseudoHtml<HTMLElement> | Component) {
@@ -73,7 +71,7 @@ export class ContainerBuiler extends Builder<ContainerTag> {
     }
 }
 
-export class AnchorBuilder extends Builder<"a"> {
+class AnchorBuilder extends Builder<"a"> {
     tag:"a" = "a"
     ref?: string
     target?: AnchorTarget
@@ -97,7 +95,7 @@ export class AnchorBuilder extends Builder<"a"> {
     }
 }
 
-export class ButtonBuilder extends Builder<"button"> {
+class ButtonBuilder extends Builder<"button"> {
     tag: "button" = "button"
     disabled: boolean = false
     type: ButtonType = "button"
@@ -127,7 +125,7 @@ export class ButtonBuilder extends Builder<"button"> {
     }
 }
 
-export class InputBuilder extends Builder<"input"> {
+class InputBuilder extends Builder<"input"> {
     tag: "input" = "input"
     name?: string
     type: InputType = 'text'

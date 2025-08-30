@@ -1,13 +1,8 @@
-import { Header } from "./features/Header"
-import { ComponentFactory, ComponentFunction } from "./models/index"
-import { Router } from "./models/index"
-import { routes } from "./routes/routes"
-
 /**
  * The only component to be rendered directly in the index.html. It will allow us to handle other component renders as a single page application, rendering them inside it with a router function.
  * @returns 
  */
-export const App:ComponentFunction = () => {
+const App:ComponentFunction = () => {
     const component = ComponentFactory.createComponent('App', 'div')
     Header().mount(component.element)
 
@@ -15,3 +10,5 @@ export const App:ComponentFunction = () => {
 
     return component
 }
+
+window.App = App

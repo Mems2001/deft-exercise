@@ -1,6 +1,4 @@
-import { LoginResponse, RegistrationFormValues } from "../models/index";
-
-export class UsersServices {
+class UsersServices {
   static async createUser(payload: RegistrationFormValues): Promise<LoginResponse> {
     try {
       const res = await fetch("/api/users/create", {

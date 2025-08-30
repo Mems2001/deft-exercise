@@ -1,9 +1,9 @@
-export interface LoginPayload {
+interface LoginPayload {
   username: string;
   password: string;
 }
 
-export interface LoginResponse {
+interface LoginResponse {
   success: boolean;
   message: string;
 }

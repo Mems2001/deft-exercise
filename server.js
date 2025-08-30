@@ -1,61 +1,39 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
-const url = require('url');
+// Simulted Server
+import { routes } from "./app/router/index.js"; 
 
-const routes = require('./app/router/index')
-
-const server = http.createServer((req, res) => {
-  const parsedUrl = url.parse(req.url, true);
-  // console.log(parsedUrl)
-
-  // API routing
-  if (parsedUrl.pathname.startsWith('/api/')) {
-    const route = routes[parsedUrl.pathname];
-    if (route && route[req.method]) {
-      route[req.method](req, res, parsedUrl.query);
-      return;
+export async function simulateRequest(url, method, body = null) {
+  // API
+  if (url.startsWith("/api/")) {
+    const route = routes[url];
+    if (route && route[method]) {
+      try {
+        const result = await route[method](body);
+        return { status: 200, data: result };
+      } catch (err) {
+        return { status: 500, data: { error: err.message } };
+      }
     } else {
-      res.writeHead(404, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ error: 'Route not found' }));
-      return;
+      return { status: 404, data: { error: "Route not found" } };
     }
   }
 
-  // Serve static files
-  let filePath = path.join(__dirname, req.url === '/' ? 'index.html' : req.url);
-  // console.log(filePath)
-  const ext = path.extname(filePath);
+  // Serve Static Files
+  let filePath = url === "/" ? "index.html" : url;
+  const ext = filePath.split(".").pop().toLowerCase();
 
-  let contentType = 'text/html';
-  if (ext === '.js') contentType = 'text/javascript';
-  if (ext === '.css') contentType = 'text/css';
+  let contentType = "text/html";
+  if (ext === "js") contentType = "text/javascript";
+  if (ext === "css") contentType = "text/css";
 
-  fs.readFile(filePath, (err, content) => {
-    if (err) {
-      if (err.code === 'ENOENT') {
-        // Instead of throwing, fallback to index.html for SPA routing
-        fs.readFile(path.join(__dirname, 'index.html'), (err2, html) => {
-          if (err2) {
-            res.writeHead(500);
-            res.end('Server Error');
-          } else {
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.end(html);
-          }
-        });
-      } else {
-        // Log but don't kill the server
-        console.warn('Request failed:', filePath, err.code);
-        res.writeHead(404);
-        res.end('Route Not Found');
-      }
-    } else {
-      res.writeHead(200, { 'Content-Type': contentType });
-      res.end(content);
-    }
-  })
+  try {
+    const response = await fetch(filePath);
+    if (!response.ok) throw new Error("File not found");
 
-});
-
-server.listen(3000, () => {console.log('Server running at http://localhost:3000')});
+    const content = await response.text();
+    return { status: 200, data: content, contentType };
+  } catch (err) {
+    // Fallback SPA: always return index.html
+    const html = await fetch("index.html").then(r => r.text());
+    return { status: 200, data: html, contentType: "text/html" };
+  }
+}

@@ -1,10 +1,4 @@
-import { Route } from "../models/router.model";
-import { Console } from "./Console";
-import { Home } from "./Home";
-import { LoginPage } from "./LoginPage";
-import { RegisterPage } from "./RegisterPage";
-
-export const routes:Route[] = [
+const routes:Route[] = [
     {
         path: '/',
         component: () => Home()
@@ -22,3 +16,5 @@ export const routes:Route[] = [
         component: () => Console()
     }
 ]
+
+window.routes = routes

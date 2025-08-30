@@ -1,6 +1,4 @@
-import { AnchorBuilder, ButtonBuilder, ContainerBuiler, ContainerTag, Form, FormBuilder, InputBuilder, MainTag, Props, PseudoHtml, TitleBuilder, TitleTag } from "./index"
-
-    export class Component<TProps extends Props = {}> {
+    class Component<TProps extends Props = {}> {
     protected props?: TProps
     public element: HTMLElement
 
@@ -118,7 +116,3 @@ import { AnchorBuilder, ButtonBuilder, ContainerBuiler, ContainerTag, Form, Form
         }
     }
     }
-
-export interface ComponentFunction {
-    (props?: any): Component
-}

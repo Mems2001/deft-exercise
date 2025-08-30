@@ -1,12 +1,10 @@
-import { AnchorBuilder, ButtonBuilder, ContainerBuiler, FormBuilder, FormValues, InputBuilder, TitleBuilder } from "./index"
-
-export abstract class PseudoHtml<T extends HTMLElement> {
+abstract class PseudoHtml<T extends HTMLElement> {
     abstract element:T
 
     protected abstract addChild(father_element:T):void
 }
 
-export class Title extends PseudoHtml<HTMLElement> {
+class Title extends PseudoHtml<HTMLElement> {
     element: HTMLElement
 
     constructor (builder: TitleBuilder) {
@@ -24,7 +22,7 @@ export class Title extends PseudoHtml<HTMLElement> {
     }
 }
 
-export class Container extends PseudoHtml<HTMLElement> {
+class Container extends PseudoHtml<HTMLElement> {
     element: HTMLElement
 
     constructor (builder: ContainerBuiler) {
@@ -42,7 +40,7 @@ export class Container extends PseudoHtml<HTMLElement> {
     }
 }
 
-export class Anchor extends PseudoHtml<HTMLAnchorElement> {
+class Anchor extends PseudoHtml<HTMLAnchorElement> {
     element: HTMLAnchorElement
 
     constructor(builder: AnchorBuilder) {
@@ -62,7 +60,7 @@ export class Anchor extends PseudoHtml<HTMLAnchorElement> {
     }
 }
 
-export class Button extends PseudoHtml<HTMLButtonElement> {
+class Button extends PseudoHtml<HTMLButtonElement> {
     element: HTMLButtonElement
 
     constructor(builder: ButtonBuilder) {
@@ -85,7 +83,7 @@ export class Button extends PseudoHtml<HTMLButtonElement> {
 
 // ---> FORM CLASSES <---
 
-export class Form extends PseudoHtml<HTMLFormElement> {
+class Form extends PseudoHtml<HTMLFormElement> {
     element: HTMLFormElement
     private values: FormValues = {}
 
@@ -119,7 +117,7 @@ export class Form extends PseudoHtml<HTMLFormElement> {
   }
 }
 
-export class Input extends PseudoHtml<HTMLInputElement> {
+class Input extends PseudoHtml<HTMLInputElement> {
     element: HTMLInputElement
 
     constructor (builder: InputBuilder) {

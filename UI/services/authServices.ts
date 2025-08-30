@@ -1,6 +1,4 @@
-import { LoginPayload, LoginResponse, Router } from "../models/index";
-
-export class AuthServices {
+class AuthServices {
   static async login(payload: LoginPayload): Promise<LoginResponse> {
     const res = await fetch("/api/auth/login", {
       method: "POST",

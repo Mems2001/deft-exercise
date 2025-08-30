@@ -1,8 +1,4 @@
-import { ButtonFunction, ComponentFactory, ComponentFunction, LoginPayload } from "../models/index";
-import { AuthServices } from "../services/authServices";
-import { UsersServices } from "../services/usersServices";
-
-export const LoginPage:ComponentFunction = () => {
+const LoginPage:ComponentFunction = () => {
     const component = ComponentFactory.createComponent('LoginPage', 'div')
 
     const loginContainer = component.addContainerHtml(component, 'div')
@@ -41,3 +37,5 @@ export const LoginPage:ComponentFunction = () => {
 
     return component
 }
+
+window.LoginPage = LoginPage

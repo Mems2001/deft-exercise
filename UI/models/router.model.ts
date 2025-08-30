@@ -1,16 +1,9 @@
-import { Component } from "./index";
-
-export interface Route {
-    path: string,
-    component: () => Component
-}
-
 /**
  * A Singleton class that provides a Router service for the App routing. To initiate it call Router.init() and review its params. Initiate it inside the App component preferably. 
  * @param {HTMLElement} root An html element where the routes will be rendered.
  * @param {Route[]} routes An array of route type objects that represents the components you need to be rendered inside the root.
  */
-export class Router {
+class Router {
   private static instance: Router|null = null
   private root: HTMLElement
   private currentComponent: Component|null = null

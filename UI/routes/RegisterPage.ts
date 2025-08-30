@@ -1,8 +1,4 @@
-import { ButtonFunction, ComponentFactory, ComponentFunction, FormValues, LoginPayload, RegistrationFormValues, Router } from "../models/index";
-import { AuthServices } from "../services/authServices";
-import { UsersServices } from "../services/usersServices";
-
-export const RegisterPage: ComponentFunction = () => {
+const RegisterPage: ComponentFunction = () => {
     const component = ComponentFactory.createComponent("Register-page", "div")
 
     const RegisterContainer = component.addContainerHtml(component, 'div')
@@ -43,3 +39,5 @@ export const RegisterPage: ComponentFunction = () => {
 
     return component
 }
+
+window.RegisterPage = RegisterPage
