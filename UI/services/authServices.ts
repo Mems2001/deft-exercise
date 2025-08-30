@@ -15,4 +15,4 @@ export class AuthServices {
     if (res.status === 200) Router.navigate('/console')
     return res.json() as Promise<LoginResponse>;
   }
-};
+}

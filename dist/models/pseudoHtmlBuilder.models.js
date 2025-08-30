@@ -90,7 +90,7 @@ export class ButtonBuilder extends Builder {
 }
 export class InputBuilder extends Builder {
     constructor(father) {
-        super(father.element);
+        super(father);
         this.tag = "input";
         this.type = 'text';
         this.required = false;

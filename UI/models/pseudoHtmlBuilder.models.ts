@@ -1,14 +1,14 @@
-import { Anchor, AnchorTarget, Button, ButtonFunction, ButtonType, Container, ContainerTag, Form, FormValues, Input, InputType, MainTag, PseudoHtml, Title, TitleTag } from "./index"
+import { Anchor, AnchorTarget, Button, ButtonFunction, ButtonType, Component, Container, ContainerTag, Form, FormValues, Input, InputType, MainTag, PseudoHtml, Title, TitleTag } from "./index"
 
 export abstract class Builder<T extends keyof HTMLElementTagNameMap> {
     abstract tag: T
-    father: HTMLElement
+    father: PseudoHtml<HTMLElement> | Component
     text_content?: string
     class_name?:string
     id?:string
     key?:string
     
-    constructor (father: HTMLElement) {
+    constructor (father: PseudoHtml<HTMLElement> | Component) {
         this.father = father
     }
 
@@ -38,7 +38,7 @@ export abstract class Builder<T extends keyof HTMLElementTagNameMap> {
 export class TitleBuilder extends Builder<TitleTag> {
     tag: TitleTag
 
-    constructor (tag:TitleTag, father: HTMLElement) {
+    constructor (tag:TitleTag, father: PseudoHtml<HTMLElement> | Component) {
         super(father)
         this.tag = tag
     }
@@ -51,7 +51,7 @@ export class TitleBuilder extends Builder<TitleTag> {
 export class FormBuilder extends Builder<"form"> {
     tag: "form" = "form"
 
-    constructor (father: HTMLElement) {
+    constructor (father: PseudoHtml<HTMLElement> | Component) {
         super(father)
     }
 
@@ -63,7 +63,7 @@ export class FormBuilder extends Builder<"form"> {
 export class ContainerBuiler extends Builder<ContainerTag> {
     tag: ContainerTag
 
-    constructor(tag: ContainerTag, father: HTMLElement) {
+    constructor(tag: ContainerTag, father: PseudoHtml<HTMLElement> | Component) {
         super(father)
         this.tag = tag
     }
@@ -78,7 +78,7 @@ export class AnchorBuilder extends Builder<"a"> {
     ref?: string
     target?: AnchorTarget
 
-    constructor(father: HTMLElement) {
+    constructor(father: PseudoHtml<HTMLElement> | Component) {
         super(father)
     }
 
@@ -103,7 +103,7 @@ export class ButtonBuilder extends Builder<"button"> {
     type: ButtonType = "button"
     clickAction: ButtonFunction = null
 
-    constructor(father: HTMLElement) {
+    constructor(father: PseudoHtml<HTMLElement> | Component) {
         super(father)
     }
 
@@ -135,7 +135,7 @@ export class InputBuilder extends Builder<"input"> {
     place_holder?: string
 
     constructor (father: Form) {
-        super(father.element)
+        super(father)
     }
 
     /**

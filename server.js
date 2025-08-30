@@ -48,7 +48,7 @@ const server = http.createServer((req, res) => {
         // Log but don't kill the server
         console.warn('Request failed:', filePath, err.code);
         res.writeHead(404);
-        res.end('Not Found');
+        res.end('Route Not Found');
       }
     } else {
       res.writeHead(200, { 'Content-Type': contentType });

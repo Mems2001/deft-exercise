@@ -5,9 +5,9 @@ export const Home = () => {
         e.preventDefault();
         Router.navigate('/login');
     };
-    component.addTitleHtml(component.component, 'h1').setText('Hello Hello').setClassName('main-title').build();
-    const loginButton = component.addButtonHtml(component.component).setClickAction(navigateToConsole).setText('Sign in').build();
-    const cont = component.addContainerHtml(component.component, "div");
+    component.addTitleHtml(component, 'h1').setText('Hello Hello').setClassName('main-title').build();
+    const loginButton = component.addButtonHtml(component).setClickAction(navigateToConsole).setText('Sign in').build();
+    const cont = component.addContainerHtml(component, "div");
     cont.setClassName('hola').build();
     return component;
 };

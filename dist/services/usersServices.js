@@ -7,21 +7,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Router } from "../models/index.js";
-export class AuthServices {
-    static login(payload) {
+export class UsersServices {
+    static createUser(payload) {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = yield fetch("/api/auth/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
-            });
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
+            try {
+                const res = yield fetch("/api/users/create", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                });
+                if (!res.ok) {
+                    const err = yield res.json();
+                    throw new Error(`Error: ${(yield err).message}`);
+                }
+                return res.json();
             }
-            if (res.status === 200)
-                Router.navigate('/console');
-            return res.json();
+            catch (error) {
+                throw new Error(`HTTP error! error: ${error.message}`);
+            }
         });
     }
 }
+;

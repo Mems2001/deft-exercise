@@ -3,7 +3,7 @@ import { ComponentFactory, ComponentFunction, Router, ButtonFunction } from "../
 export const Console:ComponentFunction = () => {
     const component = ComponentFactory.createComponent('Console', 'div')
 
-    const consoleContainer = component.addContainerHtml(component.component, "div")
+    const consoleContainer = component.addContainerHtml(component, "div")
         .setClassName("console-container")
         .build()
 
@@ -11,9 +11,19 @@ export const Console:ComponentFunction = () => {
         e.preventDefault()
         Router.navigate('/init-cart')
     }
-    const initCartButton = component.addButtonHtml(component.component)
+    const goToAddInventory:ButtonFunction = (e) => {
+        e.preventDefault()
+        Router.navigate('/add-inventory')
+    }
+    const addInventory = component.addButtonHtml(consoleContainer)
         .setType("button")
-        .setText("Start Cart")
+        .setText("Add Inventory")
+        .setClassName("console-button")
+        .setClickAction(goToAddInventory)
+        .build()
+    const initCartButton = component.addButtonHtml(consoleContainer)
+        .setType("button")
+        .setText("Start Transaction")
         .setClassName("console-button")
         .setClickAction(goToCartInit)
         .build()

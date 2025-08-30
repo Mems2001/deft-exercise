@@ -11,13 +11,13 @@ import { ComponentFactory } from "../models/index.js";
 import { AuthServices } from "../services/authServices.js";
 export const LoginPage = () => {
     const component = ComponentFactory.createComponent('LoginPage', 'div');
-    const loginContainer = component.addContainerHtml(component.component, 'div')
+    const loginContainer = component.addContainerHtml(component, 'div')
         .setClassName("login-container")
         .build();
-    component.addTitleHtml(loginContainer.element, "h1")
+    component.addTitleHtml(loginContainer, "h1")
         .setText("Log In")
         .setClassName("login-title");
-    const loginForm = component.addForm(loginContainer.element)
+    const loginForm = component.addForm(loginContainer)
         .setClassName("login-form")
         .build();
     const usernameInput = component.addInput(loginForm)
@@ -30,7 +30,7 @@ export const LoginPage = () => {
         .setType("password")
         .setName("password")
         .build(loginForm);
-    const submitButton = component.addButtonHtml(loginForm.element)
+    const submitButton = component.addButtonHtml(loginForm)
         .setType("submit")
         .setClassName("login-submit-btn")
         .setText("Login")

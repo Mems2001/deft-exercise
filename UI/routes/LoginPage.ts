@@ -1,17 +1,18 @@
-import { ComponentFactory, ComponentFunction, LoginPayload } from "../models/index";
+import { ButtonFunction, ComponentFactory, ComponentFunction, LoginPayload } from "../models/index";
 import { AuthServices } from "../services/authServices";
+import { UsersServices } from "../services/usersServices";
 
 export const LoginPage:ComponentFunction = () => {
     const component = ComponentFactory.createComponent('LoginPage', 'div')
 
-    const loginContainer = component.addContainerHtml(component.component, 'div')
+    const loginContainer = component.addContainerHtml(component, 'div')
         .setClassName("login-container")
         .build()
-    component.addTitleHtml(loginContainer.element, "h1")
+    component.addTitleHtml(loginContainer, "h1")
         .setText("Log In")
         .setClassName("login-title")
 
-    const loginForm = component.addForm(loginContainer.element)
+    const loginForm = component.addForm(loginContainer)
         .setClassName("login-form")
         .build()
     const usernameInput = component.addInput(loginForm)
@@ -24,7 +25,7 @@ export const LoginPage:ComponentFunction = () => {
         .setType("password")
         .setName("password")
         .build(loginForm)
-    const submitButton = component.addButtonHtml(loginForm.element)
+    const submitButton = component.addButtonHtml(loginForm)
         .setType("submit")
         .setClassName("login-submit-btn")
         .setText("Login")

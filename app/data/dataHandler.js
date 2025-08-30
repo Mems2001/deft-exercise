@@ -2,7 +2,14 @@ const fs = require("fs");
 const path = require("path");
 
 function getFilePath(filename) {
-  return path.join(__dirname, "../data", filename);
+  return path.join(__dirname, filename);
+}
+
+function createJsonFile(filename) {
+  const filePath = getFilePath(filename);
+  if (!fs.existsSync(filePath)) {
+    fs.writeFileSync(filePath, JSON.stringify([], null, 2), "utf8");
+  }
 }
 
 function readJson(filename) {

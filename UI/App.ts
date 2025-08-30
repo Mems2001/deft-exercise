@@ -1,3 +1,4 @@
+import { Header } from "./features/Header"
 import { ComponentFactory, ComponentFunction } from "./models/index"
 import { Router } from "./models/index"
 import { routes } from "./routes/routes"
@@ -8,8 +9,9 @@ import { routes } from "./routes/routes"
  */
 export const App:ComponentFunction = () => {
     const component = ComponentFactory.createComponent('App', 'div')
+    Header().mount(component.element)
 
-    Router.init(component.component, routes)
+    Router.init(component.element, routes)
 
     return component
 }

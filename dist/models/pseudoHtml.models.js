@@ -12,10 +12,10 @@ export class Title extends PseudoHtml {
             this.element.id = builder.id;
         if (builder.key)
             this.element.dataset.key = builder.key;
-        this.addChild(builder.father);
+        this.addChild(builder.father.element);
     }
-    addChild(father) {
-        father.appendChild(this.element);
+    addChild(father_element) {
+        father_element.appendChild(this.element);
     }
 }
 export class Container extends PseudoHtml {
@@ -30,10 +30,10 @@ export class Container extends PseudoHtml {
             this.element.id = builder.id;
         if (builder.key)
             this.element.dataset.key = builder.key;
-        this.addChild(builder.father);
+        this.addChild(builder.father.element);
     }
-    addChild(father) {
-        father.appendChild(this.element);
+    addChild(father_element) {
+        father_element.appendChild(this.element);
     }
 }
 export class Anchor extends PseudoHtml {
@@ -52,10 +52,10 @@ export class Anchor extends PseudoHtml {
             this.element.href = builder.ref;
         if (builder.target)
             this.element.target = builder.target;
-        this.addChild(builder.father);
+        this.addChild(builder.father.element);
     }
-    addChild(father) {
-        father.appendChild(this.element);
+    addChild(father_element) {
+        father_element.appendChild(this.element);
     }
 }
 export class Button extends PseudoHtml {
@@ -73,10 +73,10 @@ export class Button extends PseudoHtml {
         this.element.onclick = builder.clickAction;
         this.element.disabled = builder.disabled;
         this.element.type = builder.type;
-        this.addChild(builder.father);
+        this.addChild(builder.father.element);
     }
-    addChild(father) {
-        father.appendChild(this.element);
+    addChild(father_element) {
+        father_element.appendChild(this.element);
     }
 }
 // ---> FORM CLASSES <---
@@ -93,10 +93,10 @@ export class Form extends PseudoHtml {
             this.element.id = builder.id;
         if (builder.key)
             this.element.dataset.key = builder.key;
-        this.addChild(builder.father);
+        this.addChild(builder.father.element);
     }
-    addChild(father) {
-        father.appendChild(this.element);
+    addChild(father_element) {
+        father_element.appendChild(this.element);
     }
     getValues() {
         return this.values;
@@ -129,12 +129,12 @@ export class Input extends PseudoHtml {
             this.element.name = builder.name;
         this.element.type = builder.type;
         this.element.required = builder.required;
-        this.addChild(builder.father);
+        this.addChild(builder.father.element);
     }
-    addChild(father) {
-        if (!(father instanceof HTMLFormElement)) {
+    addChild(father_element) {
+        if (!(father_element instanceof HTMLFormElement)) {
             throw new Error("An input might always be inserted into a html form element");
         }
-        father.appendChild(this.element);
+        father_element.appendChild(this.element);
     }
 }

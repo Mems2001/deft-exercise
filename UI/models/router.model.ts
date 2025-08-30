@@ -2,7 +2,7 @@ import { Component } from "./index";
 
 export interface Route {
     path: string,
-    component: Component
+    component: () => Component
 }
 
 /**
@@ -48,7 +48,7 @@ export class Router {
     if (this.routes) {
       for (let route of this.routes) {
         if (route.path === path) {
-          this.currentComponent = route.component
+          this.currentComponent = route.component()
           break
         }
       }

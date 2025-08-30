@@ -12,3 +12,8 @@ function comparePasswords(password, storedPassword) {
   const originalBuffer = Buffer.from(originalHash, 'hex');
   return crypto.timingSafeEqual(hash, originalBuffer);
 }
+
+module.exports = {
+  hashPassword,
+  comparePasswords
+}
