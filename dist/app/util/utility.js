@@ -76,7 +76,7 @@ function receiptToTxt(receipt) {
     });
     const divider = "*".repeat(36);
     let savingsLine = null;
-    if (receipt.savings < 0) {
+    if (receipt.savings > 0) {
         savingsLine = `YOU SAVED: $${receipt.savings.toFixed(2)}!`;
     }
     const textString = [
