@@ -18,6 +18,18 @@ const CheckoutPage = (props) => {
         .setClassName("customer-title")
         .setText(props.customer)
         .build();
+    const cartContainer = component.addContainerHtml(component, 'div')
+        .setClassName('cart-container')
+        .build();
+    if (props && props.cartArticles && props.cartArticles.length > 0) {
+        ArticleComponent({ "article": { item: "item", quantity: "quantity", regular_price: "regular price", member_price: "member price", tax_status: "tax status" } }).mount(cartContainer.element);
+        for (let c of props.cartArticles) {
+            const cartArticleContainer = component.addContainerHtml(cartContainer, "div")
+                .setClassName("cart-article-container")
+                .build();
+            ArticleComponent({ "article": c }).mount(cartArticleContainer.element);
+        }
+    }
     const totalContainer = component.addContainerHtml(component, "div")
         .setClassName("total-container")
         .build();
