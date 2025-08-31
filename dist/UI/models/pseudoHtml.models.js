@@ -139,3 +139,24 @@ class Input extends PseudoHtml {
         father_element.appendChild(this.element);
     }
 }
+class Select extends PseudoHtml {
+    constructor(builder) {
+        super();
+        this.element = document.createElement(builder.tag);
+        if (builder.text_content)
+            this.element.textContent = builder.text_content;
+        if (builder.class_name)
+            this.element.className = builder.class_name;
+        if (builder.id)
+            this.element.id = builder.id;
+        if (builder.key)
+            this.element.dataset.key = builder.key;
+        this.addChild(builder.father.element);
+    }
+    addChild(father_element) {
+        if (!(father_element instanceof HTMLFormElement)) {
+            throw new Error("A select might always be inserted into a html form element");
+        }
+        father_element.appendChild(this.element);
+    }
+}

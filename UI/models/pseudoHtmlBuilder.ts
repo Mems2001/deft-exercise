@@ -146,12 +146,18 @@ class InputBuilder extends Builder<"input"> {
         if (!name) throw new Error("Input must have a name to be registered in a form");
 
         // Set value in the form state
-        father.setValue(name, input.element.value);
+        if (input.element.files && input.element.files?.length > 0) {
+            father.setValue(name, input.element.files)
+        }
+        else father.setValue(name, input.element.value)
 
         // Listen to changes
         input.element.addEventListener("input", () => {
-          father.setValue(name, input.element.value);
-        });
+            if (input.element.files && input.element.files?.length > 0) {
+                father.setValue(name, input.element.files)
+            }
+            else father.setValue(name, input.element.value);
+        })
     } 
 
     setType(type: InputType) {
@@ -179,5 +185,19 @@ class InputBuilder extends Builder<"input"> {
         this.register(newInput, father)
 
         return newInput
+    }
+}
+
+class SelectBuilder extends Builder<"select"> {
+    tag: "select" = "select"
+
+    constructor (father: Form) {
+        super(father)
+    }
+
+    build(father: Form): PseudoHtml<HTMLElement> {
+        const newSelect = new Select(this)
+
+        return newSelect
     }
 }

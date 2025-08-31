@@ -76,7 +76,6 @@ class Router {
         if (!Router.instance) {
             throw new Error("Router not initialized. Call Router.init(outlet) first.");
         }
-        console.log("navigating with props:", props);
         Router.instance.updateRoute(path, props);
     }
 }

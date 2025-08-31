@@ -17,7 +17,7 @@ type TitleTag = Extract<MainTag, | "h1" | "h2" | "h3" | "h4">
 type ButtonFunction = ((this: GlobalEventHandlers, ev: MouseEvent) => any) | null
 type ButtonType = "button" | "submit" | "reset"
 type AnchorTarget = "_self" | "_blank" | "_parent" | "_top" | (string & {})
-type InputType = "text" | "checkbox" | "date" | "date-time" | "email" | "password" 
+type InputType = "text" | "checkbox" | "date" | "date-time" | "email" | "password" | "file"
 
 type FormValues = Record<string, any>
 
