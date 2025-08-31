@@ -18,7 +18,7 @@ function simulateRequest(url_1, method_1) {
             console.log("Getting route", route, url, method);
             if (route && route[method]) {
                 try {
-                    const result = yield route[method](body !== null && body !== void 0 ? body : null);
+                    const result = yield route[method](body);
                     return result;
                 }
                 catch (err) {

@@ -13,6 +13,10 @@ class Router {
         this.routes = routes;
         this.initRouter();
     }
+    static get path() {
+        var _a;
+        return (_a = Router.instance) === null || _a === void 0 ? void 0 : _a.simulatedPath;
+    }
     setSimulatedPath(path) {
         return this.simulatedPath = path;
     }

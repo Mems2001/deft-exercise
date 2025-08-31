@@ -16,6 +16,10 @@ class Router {
     this.initRouter()
   }
 
+  static get path() {
+    return Router.instance?.simulatedPath
+  }
+
   setSimulatedPath(path:string) {
     return this.simulatedPath = path
   }

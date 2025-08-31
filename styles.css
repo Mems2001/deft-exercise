@@ -1,4 +1,13 @@
+:root {
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
 body {
+    margin: 0;
+}
+
+p {
     margin: 0;
 }
 
@@ -18,6 +27,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    padding-top: 7vh;
 }
 
 /* ---> Header <--- */
@@ -27,10 +38,16 @@ body {
     top: 0;
     left: 0;
 
-    height: 8vh;
+    height: 7vh;
     width: 100%;
 
     border: 1px solid black;
+    background-color: white;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 /* ---> Home <--- */
@@ -145,6 +162,16 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    padding: 2rem 0;
+    width: 60vw;
+}
+
+.inventory-nav {
+    width: 60vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .inventory-form {
@@ -159,4 +186,55 @@ body {
 .upload-button {
     width: 100%;
     height: 5vh;
+}
+
+.status-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.articles-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.download-button {
+    width: 30%;
+    height: 5vh;
+}
+
+/* Article Component */
+.article-component {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+
+    padding: 0.5rem;
+    border: 1px solid black;
+    height: 4vh;
+}
+
+.article-item {
+    width: 12rem;
+}
+.article-quantity {
+    width: 4rem;
+    text-align: center;
+}
+.article-regular-price {
+    width: 6rem;
+    text-align: center;
+}
+.article-member-price {
+    width: 6rem;
+    text-align: center;
+}
+.article-tax-status {
+    width: 8rem;
+    text-align: center;
 }

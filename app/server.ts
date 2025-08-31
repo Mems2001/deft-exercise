@@ -7,7 +7,7 @@ async function simulateRequest(url:string, method:string, body:any = null) {
     console.log("Getting route",route, url, method)
     if (route && route[method]) {
       try {
-        const result = await route[method](body??null);
+        const result = await route[method](body)
         return result;
       } catch (err:any) {
         return { status: 500, message: err.message, err }

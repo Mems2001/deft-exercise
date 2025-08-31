@@ -1,6 +1,7 @@
 interface Window {
     App: ComponentFunction,
     Header: ComponentFunction,
+    ArticleComponent: ComponentFunction,
     Home: ComponentFunction,
     LoginPage: ComponentFunction,
     RegisterPage: ComponentFunction,

@@ -39,3 +39,14 @@ function parseInventory(txt: string): Article[] {
 
   return articles
 }
+
+/**
+ * Use it to convert a string to a .txt file, ideal to send back the inventory.
+ * @param content 
+ * @param filename 
+ * @returns 
+ */
+function stringToTxtFile(content: string, filename = "updated-inventory.txt"): File {
+    const blob = new Blob([content], { type: "text/plain" })
+    return new File([blob], filename, { type: "text/plain" })
+}

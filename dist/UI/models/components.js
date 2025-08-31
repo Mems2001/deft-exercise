@@ -14,6 +14,9 @@ class Component {
         component.id = name.toLowerCase() + '-component';
         return component;
     }
+    get Props() {
+        return this.props;
+    }
     /**
      * Use this to create a title-like PseudoHtml instance such as h1 and its brothers. This method returns a Builder you can use to add new attributes to the html element. Finish the declaration with .build() to append the element to its father. You can also use .element after that to get the html element if needed.
      * @param {PseudoHtml<HTMLElement> | Component} father Specify the father object in wich you'll append the requested element.
@@ -83,9 +86,10 @@ class Component {
         outlet.appendChild(this.element);
     }
     /** Updates the component, e.g., after props change and re-renders in the same parent */
-    update(outlet, newProps) {
+    update(newProps) {
         this.props = newProps;
-        this.mount(outlet);
+        this.unmount();
+        Router.navigate(Router.path, newProps);
     }
     /** Removes the component from the DOM */
     unmount() {

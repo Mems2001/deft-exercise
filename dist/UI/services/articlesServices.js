@@ -8,6 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+function downloadFile(file, filename) {
+    const url = URL.createObjectURL(file);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
 class ArticlesServices {
     static getAllArticles() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -15,6 +25,30 @@ class ArticlesServices {
                 const res = yield simulateRequest("api/articles", "GET");
                 console.log("Articles:", res);
                 return res.data;
+            }
+            catch (error) {
+                throw new Error(`HTTP error! error: ${error.message}`);
+            }
+        });
+    }
+    static postInventory(body) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const res = yield simulateRequest("api/articles/inventory", "POST", body);
+                console.log("Inventory:", res);
+                return res.data;
+            }
+            catch (error) {
+                throw new Error(`HTTP error! error: ${error.message}`);
+            }
+        });
+    }
+    static downloadInventory() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const file = yield simulateRequest("api/articles/inventory", "GET");
+                console.log("File:", file);
+                return downloadFile(file.data, "updated-inventory.txt");
             }
             catch (error) {
                 throw new Error(`HTTP error! error: ${error.message}`);

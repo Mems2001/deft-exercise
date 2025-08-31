@@ -3,6 +3,8 @@ interface Window {
     api_routes: any,
 
     articlesService: {
-        findAllArticles():Promise<Article[]>
+        findAllArticles():Promise<Article[]>,
+        createInventory(files:any):Promise<boolean>,
+        exportInventory():void
     }
 }
