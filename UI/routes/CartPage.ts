@@ -6,6 +6,10 @@
             e.preventDefault()
             Router.navigate('/console')
         }
+        const goTocheckOut:ButtonFunction = (e) => {
+            e.preventDefault()
+            Router.navigate('/check-out', {'cartArticles': props!.cartArticles, "articles": props!.articles})
+        }
         const mapItems = (articles:Article[]):string[] => {
             return articles.map(a => a.item)
         }
@@ -79,13 +83,26 @@
         addArticleForm.onSubmit((values) => {
             console.log(values)
             const article:Article = props!.articles.find((a:Article) => a.item === values['item-select'])
+
+            let repeatedArticle:Article|null = null
+            if (props && props.cartArticles) repeatedArticle = props.cartArticles.find((a:Article) => a.item === article.item)
+            if (repeatedArticle) return window.alert("This item is already in the cart")
+
             const quantity = window.prompt(`Type the quantity you need(max: ${article.quantity}):`)
             console.log(quantity)
-            if (quantity && (Number(quantity) > article.quantity)) window.alert(`Can not add the item, the max ammount of ${article.item} is ${article.quantity}`)
+            if (quantity && (Number(quantity) > article.quantity)) return window.alert(`Can not add the item, the max ammount of ${article.item} is ${article.quantity}`)
             
-            if (quantity && !(Number(quantity) > article.quantity)) Router.navigate('/cart', {"articles": props!.articles, "cartArticles": [ ...props?.cartArticles ?? [] ,{ ...article, quantity:Number(quantity), member_price:(Number(quantity) * article.member_price), regular_price: (Number(quantity)*article.regular_price) } as Article]})
+            if (quantity) Router.navigate('/cart', {"articles": props!.articles, "cartArticles": [ ...props?.cartArticles ?? [] ,{ ...article, quantity:Number(quantity), member_price:(Number(quantity) * article.member_price), regular_price: (Number(quantity)*article.regular_price) } as Article]})
             else window.alert("Must choose a quantity")
         })
+
+        if (props && props.cartArticles && props.cartArticles.length > 0) {
+            component.addButtonHtml(component)
+                .setText("Check-out")
+                .setClassName("add-button")
+                .setClickAction(goTocheckOut)
+                .build()
+        }
 
         return component
     }

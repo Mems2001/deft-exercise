@@ -18,10 +18,14 @@ const routes = [
     },
     {
         path: '/cart',
-        component: (props) => window.CartPage(props)
+        component: (props) => CartPage(props)
     },
     {
         path: '/inventory',
         component: (props) => InventoryPage(props)
+    },
+    {
+        path: '/check-out',
+        component: (props) => CheckoutPage(props)
     }
 ];

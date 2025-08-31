@@ -6,6 +6,10 @@ const CartPage = (props) => {
         e.preventDefault();
         Router.navigate('/console');
     };
+    const goTocheckOut = (e) => {
+        e.preventDefault();
+        Router.navigate('/check-out', { 'cartArticles': props.cartArticles, "articles": props.articles });
+    };
     const mapItems = (articles) => {
         return articles.map(a => a.item);
     };
@@ -77,15 +81,27 @@ const CartPage = (props) => {
         var _a;
         console.log(values);
         const article = props.articles.find((a) => a.item === values['item-select']);
+        let repeatedArticle = null;
+        if (props && props.cartArticles)
+            repeatedArticle = props.cartArticles.find((a) => a.item === article.item);
+        if (repeatedArticle)
+            return window.alert("This item is already in the cart");
         const quantity = window.prompt(`Type the quantity you need(max: ${article.quantity}):`);
         console.log(quantity);
         if (quantity && (Number(quantity) > article.quantity))
-            window.alert(`Can not add the item, the max ammount of ${article.item} is ${article.quantity}`);
-        if (quantity && !(Number(quantity) > article.quantity))
+            return window.alert(`Can not add the item, the max ammount of ${article.item} is ${article.quantity}`);
+        if (quantity)
             Router.navigate('/cart', { "articles": props.articles, "cartArticles": [...(_a = props === null || props === void 0 ? void 0 : props.cartArticles) !== null && _a !== void 0 ? _a : [], Object.assign(Object.assign({}, article), { quantity: Number(quantity), member_price: (Number(quantity) * article.member_price), regular_price: (Number(quantity) * article.regular_price) })] });
         else
             window.alert("Must choose a quantity");
     });
+    if (props && props.cartArticles && props.cartArticles.length > 0) {
+        component.addButtonHtml(component)
+            .setText("Check-out")
+            .setClassName("add-button")
+            .setClickAction(goTocheckOut)
+            .build();
+    }
     return component;
 };
 window.CartPage = CartPage;
