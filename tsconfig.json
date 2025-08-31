@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES6",         // JS version the browser will understand
-    "module": "ES6",         // Use ES modules (import/export)
+    "target": "es2022",         // JS version the browser will understand
+    "module": "es2022",         // Use ES modules (import/export)
     "outDir": "dist",        // Compiled JS files go here
     "strict": true,          // Enable strict type-checking
     "esModuleInterop": true, // Makes default imports compatible

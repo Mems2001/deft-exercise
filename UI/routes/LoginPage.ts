@@ -27,12 +27,7 @@ const LoginPage:ComponentFunction = () => {
         .setText("Login")
         .build()
     loginForm.onSubmit(async (values) => {
-        try {
-            const result = await AuthServices.login(values as LoginPayload)
-            console.log(result)
-        } catch (error) {
-            throw new Error("Login call failed")
-        }
+        
     })
 
     return component

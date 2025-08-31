@@ -1,5 +1,6 @@
 const api_routes = {
-        ...articleRoutes
+        ...articleRoutes,
+        ...checkoutRoutes
      }
 
 window.api_routes = api_routes

@@ -2,6 +2,7 @@
 class PseudoHtml {
 }
 class Title extends PseudoHtml {
+    element;
     constructor(builder) {
         super();
         this.element = document.createElement(builder.tag);
@@ -20,6 +21,7 @@ class Title extends PseudoHtml {
     }
 }
 class Container extends PseudoHtml {
+    element;
     constructor(builder) {
         super();
         this.element = document.createElement(builder.tag);
@@ -38,6 +40,7 @@ class Container extends PseudoHtml {
     }
 }
 class Anchor extends PseudoHtml {
+    element;
     constructor(builder) {
         super();
         this.element = document.createElement(builder.tag);
@@ -60,6 +63,7 @@ class Anchor extends PseudoHtml {
     }
 }
 class Button extends PseudoHtml {
+    element;
     constructor(builder) {
         super();
         this.element = document.createElement(builder.tag);
@@ -82,9 +86,10 @@ class Button extends PseudoHtml {
 }
 // ---> FORM CLASSES <---
 class Form extends PseudoHtml {
+    element;
+    values = {};
     constructor(builder) {
         super();
-        this.values = {};
         this.element = document.createElement(builder.tag);
         if (builder.text_content)
             this.element.textContent = builder.text_content;
@@ -113,6 +118,7 @@ class Form extends PseudoHtml {
     }
 }
 class Input extends PseudoHtml {
+    element;
     constructor(builder) {
         super();
         this.element = document.createElement(builder.tag);
@@ -140,6 +146,7 @@ class Input extends PseudoHtml {
     }
 }
 class Select extends PseudoHtml {
+    element;
     constructor(builder) {
         super();
         this.element = document.createElement(builder.tag);
@@ -153,6 +160,8 @@ class Select extends PseudoHtml {
             this.element.dataset.key = builder.key;
         if (builder.options)
             this.setOptions(builder.options);
+        if (builder.value)
+            this.element.value = builder.value;
         this.addChild(builder.father.element);
     }
     addChild(father_element) {

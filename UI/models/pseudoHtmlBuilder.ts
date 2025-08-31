@@ -192,6 +192,7 @@ class SelectBuilder extends Builder<"select"> {
     tag: "select" = "select"
     options?: string[]
     name?:string
+    value?: string
 
     constructor (father: Form) {
         super(father)
@@ -204,6 +205,11 @@ class SelectBuilder extends Builder<"select"> {
 
     setName(name:string) {
         this.name = name
+        return this
+    }
+
+    setValue(value:string) {
+        if (value) this.value = value
         return this
     }
 

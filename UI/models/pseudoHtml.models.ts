@@ -153,6 +153,7 @@ class Select extends PseudoHtml<HTMLSelectElement> {
         if (builder.id) this.element.id = builder.id
         if (builder.key) this.element.dataset.key = builder.key
         if (builder.options) this.setOptions(builder.options)
+        if (builder.value) this.element.value = builder.value
         this.addChild(builder.father.element)
     }
 

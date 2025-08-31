@@ -1,5 +1,7 @@
 "use strict";
 class Component {
+    props;
+    element;
     constructor(name, mainTag, props) {
         this.props = props;
         this.onInit();

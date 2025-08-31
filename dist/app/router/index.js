@@ -1,3 +1,6 @@
 "use strict";
-const api_routes = Object.assign({}, articleRoutes);
+const api_routes = {
+    ...articleRoutes,
+    ...checkoutRoutes
+};
 window.api_routes = api_routes;

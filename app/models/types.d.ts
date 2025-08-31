@@ -10,3 +10,5 @@ interface ErrorResponse {
     message: string,
     error?: any
 }
+
+type PriceType = "regular_price" | "member_price"

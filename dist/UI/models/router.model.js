@@ -5,17 +5,18 @@
  * @param {Route[]} routes An array of route type objects that represents the components you need to be rendered inside the root.
  */
 class Router {
+    static instance = null;
+    root;
+    currentComponent = null;
+    routes = null;
+    simulatedPath = '/console';
     constructor(root, routes) {
-        this.currentComponent = null;
-        this.routes = null;
-        this.simulatedPath = '/console';
         this.root = root;
         this.routes = routes;
         this.initRouter();
     }
     static get path() {
-        var _a;
-        return (_a = Router.instance) === null || _a === void 0 ? void 0 : _a.simulatedPath;
+        return Router.instance?.simulatedPath;
     }
     setSimulatedPath(path) {
         return this.simulatedPath = path;
@@ -36,7 +37,6 @@ class Router {
      * @param path
      */
     updateRoute(path, props) {
-        var _a;
         // First it unmounts the current component if there is any (Check components.model.ts for more information about the Component class methods)
         if (this.currentComponent) {
             this.currentComponent.unmount();
@@ -52,7 +52,7 @@ class Router {
             }
         }
         // Finally, in renders the required component through its mount method (Check component.models.ts file for more information about the Component class methods).
-        (_a = this.currentComponent) === null || _a === void 0 ? void 0 : _a.mount(this.root);
+        this.currentComponent?.mount(this.root);
     }
     /**
      * This method is for internal initialization only. It is in charge to render the initial route ('/' if Router was initialized within the App component as sugested). It also keeps track of any pathname changes due to navigation.
@@ -73,9 +73,8 @@ class Router {
      * As easy as calling the method and specify the path, it will render the required component inside the root. Works only if the Router was previosly initialized.
      */
     static navigate(path, props) {
-        var _a;
         // Keeps track of navigation for backwards and fowards navigation purposes
-        (_a = Router.instance) === null || _a === void 0 ? void 0 : _a.setSimulatedPath(path);
+        Router.instance?.setSimulatedPath(path);
         // Prevents the user from calling this static method without initializing a Router first.
         if (!Router.instance) {
             throw new Error("Router not initialized. Call Router.init(outlet) first.");
@@ -83,5 +82,4 @@ class Router {
         Router.instance.updateRoute(path, props);
     }
 }
-Router.instance = null;
 window.Router = Router;

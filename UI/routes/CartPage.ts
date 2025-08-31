@@ -2,20 +2,22 @@
         const component = ComponentFactory.createComponent('Cart-page', 'div')
         console.log(props)
 
+        // Utitlity functions
         const backToConsole:ButtonFunction = (e) => {
             e.preventDefault()
             Router.navigate('/console')
         }
         const goTocheckOut:ButtonFunction = (e) => {
             e.preventDefault()
-            Router.navigate('/check-out', {'cartArticles': props!.cartArticles, "articles": props!.articles})
+            const customerType = auxForm.getValues()['customer-type']
+            Router.navigate('/check-out', {'cartArticles': props!.cartArticles, "articles": props!.articles, "customer": customerType})
         }
         const mapItems = (articles:Article[]):string[] => {
             return articles.map(a => a.item)
         }
         const removeItem = (article:Article) => {
             const newCartArticles:Article[] = props!.cartArticles.filter((a:Article) => a.item !== article.item)
-            Router.navigate('/cart', {"articles": props!.articles, "cartArticles": newCartArticles})
+            Router.navigate('/cart', {"articles": props!.articles, "cartArticles": newCartArticles, "customer": auxForm.getValues()['customer-type']})
         }
         const editItemQuantity = (article:Article) => {
             const inventoryArticle:Article = props!.articles.find((a:Article) => a.item === article.item)
@@ -26,10 +28,11 @@
                 console.log("newItem",newItem)
                 const removedItem:Article[] = props!.cartArticles.filter((a:Article) => a.item !== article.item)
                 const newCartArticles:Article[] = [...removedItem, newItem]
-                Router.navigate("/cart", {"articles": props!.articles, "cartArticles": newCartArticles})
+                Router.navigate("/cart", {"articles": props!.articles, "cartArticles": newCartArticles, "customer": auxForm.getValues()['customer-type']})
             }
         }
 
+        //UI Elements
         const cartNav = component.addContainerHtml(component, "div")
             .setClassName("page-nav")
             .build()
@@ -38,6 +41,17 @@
             .setText("Back")
             .setClickAction(backToConsole)
             .build()
+        const auxForm = component.addForm(cartNav)
+            .setClassName("customer-select")
+            .build()
+        component.addContainerHtml(auxForm, "p")
+            .setText("Customer type:")
+            .build()
+        component.addSelect(auxForm)
+            .setOptions(["Regular Customer" , "Rewards Member"] as CustomerType[])
+            .setName("customer-type")
+            .setValue(props?.customer ?? null)
+            .build(auxForm)
 
         const cartContainer = component.addContainerHtml(component, 'div')
             .setClassName('cart-container')
@@ -92,7 +106,7 @@
             console.log(quantity)
             if (quantity && (Number(quantity) > article.quantity)) return window.alert(`Can not add the item, the max ammount of ${article.item} is ${article.quantity}`)
             
-            if (quantity) Router.navigate('/cart', {"articles": props!.articles, "cartArticles": [ ...props?.cartArticles ?? [] ,{ ...article, quantity:Number(quantity), member_price:(Number(quantity) * article.member_price), regular_price: (Number(quantity)*article.regular_price) } as Article]})
+            if (quantity) Router.navigate('/cart', {"articles": props!.articles, "cartArticles": [ ...props?.cartArticles ?? [] ,{ ...article, quantity:Number(quantity), member_price:(Number(quantity) * article.member_price), regular_price: (Number(quantity)*article.regular_price) } as Article], "customer": auxForm.getValues()['customer-type']})
             else window.alert("Must choose a quantity")
         })
 

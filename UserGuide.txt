@@ -1,4 +1,4 @@
-🛒 JerrysMart Web App – User Guide
+🛒 Jerry'sMart Web App – User Guide
 📌 Overview
 
 JerrysMart is a fully offline, standalone web application designed for managing inventory and sales.
@@ -11,7 +11,7 @@ Provides intuitive feedback via alerts
 
 Fully portable and easy to use
 
-IMPORTANT: Sell receipt emision is missing for now.
+IMPORTANT!: Sell receipt emision is missing for now.
 
 🚀 Getting Started
 Initialization

@@ -1,5 +1,10 @@
 "use strict";
 class Builder {
+    father;
+    text_content;
+    class_name;
+    id;
+    key;
     constructor(father) {
         this.father = father;
     }
@@ -21,6 +26,7 @@ class Builder {
     }
 }
 class TitleBuilder extends Builder {
+    tag;
     constructor(tag, father) {
         super(father);
         this.tag = tag;
@@ -30,15 +36,16 @@ class TitleBuilder extends Builder {
     }
 }
 class FormBuilder extends Builder {
+    tag = "form";
     constructor(father) {
         super(father);
-        this.tag = "form";
     }
     build() {
         return new Form(this);
     }
 }
 class ContainerBuiler extends Builder {
+    tag;
     constructor(tag, father) {
         super(father);
         this.tag = tag;
@@ -48,9 +55,11 @@ class ContainerBuiler extends Builder {
     }
 }
 class AnchorBuilder extends Builder {
+    tag = "a";
+    ref;
+    target;
     constructor(father) {
         super(father);
-        this.tag = "a";
     }
     setRef(ref) {
         this.ref = ref;
@@ -65,12 +74,12 @@ class AnchorBuilder extends Builder {
     }
 }
 class ButtonBuilder extends Builder {
+    tag = "button";
+    disabled = false;
+    type = "button";
+    clickAction = null;
     constructor(father) {
         super(father);
-        this.tag = "button";
-        this.disabled = false;
-        this.type = "button";
-        this.clickAction = null;
     }
     setDisabled(value) {
         this.disabled = value;
@@ -89,11 +98,13 @@ class ButtonBuilder extends Builder {
     }
 }
 class InputBuilder extends Builder {
+    tag = "input";
+    name;
+    type = 'text';
+    required = false;
+    place_holder;
     constructor(father) {
         super(father);
-        this.tag = "input";
-        this.type = 'text';
-        this.required = false;
     }
     /**
      * Bind the input element to its father, a form.
@@ -101,20 +112,18 @@ class InputBuilder extends Builder {
      * @param {Form} father
      */
     register(input, father) {
-        var _a;
         const name = this.name;
         if (!name)
             throw new Error("Input must have a name to be registered in a form");
         // Set value in the form state
-        if (input.element.files && ((_a = input.element.files) === null || _a === void 0 ? void 0 : _a.length) > 0) {
+        if (input.element.files && input.element.files?.length > 0) {
             father.setValue(name, input.element.files);
         }
         else
             father.setValue(name, input.element.value);
         // Listen to changes
         input.element.addEventListener("input", () => {
-            var _a;
-            if (input.element.files && ((_a = input.element.files) === null || _a === void 0 ? void 0 : _a.length) > 0) {
+            if (input.element.files && input.element.files?.length > 0) {
                 father.setValue(name, input.element.files);
             }
             else
@@ -144,9 +153,12 @@ class InputBuilder extends Builder {
     }
 }
 class SelectBuilder extends Builder {
+    tag = "select";
+    options;
+    name;
+    value;
     constructor(father) {
         super(father);
-        this.tag = "select";
     }
     setOptions(options) {
         this.options = options;
@@ -154,6 +166,11 @@ class SelectBuilder extends Builder {
     }
     setName(name) {
         this.name = name;
+        return this;
+    }
+    setValue(value) {
+        if (value)
+            this.value = value;
         return this;
     }
     register(select, father) {

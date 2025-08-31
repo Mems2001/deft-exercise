@@ -248,6 +248,13 @@ p {
     gap: 2rem;
 }
 
+.customer-select {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
 .cart-article-container {
     display: flex;
     flex-direction: row;
@@ -262,4 +269,49 @@ p {
 .add-button {
     height: 4vh;
     padding: 0 0.5rem
+}
+
+/* Checkout Page */
+
+.check-out-page-component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.customer-title {
+    margin: 0;
+}
+
+.total-container {
+    width: 100%;
+}
+
+.totals-component {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.totals-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.totals-label {
+    margin: 0;
+}
+
+.change-button {
+    height: 3vh;
+}
+
+.finish-button {
+    height: 5vh;
+    padding: 0 0.5rem;
 }

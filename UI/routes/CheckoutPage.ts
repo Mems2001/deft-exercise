@@ -3,9 +3,9 @@ const CheckoutPage:ComponentFunction = (props?: Props) => {
     console.log(props)
 
     const backToCart:ButtonFunction = (e) => {
-            e.preventDefault()
-            Router.navigate('/cart', {"cartArticles": props!.cartArticles, "articles": props!.articles})
-        }
+        e.preventDefault()
+        Router.navigate('/cart', {"cartArticles": props!.cartArticles, "articles": props!.articles, "customer": props!.customer})
+    }
 
     const checkoutNav = component.addContainerHtml(component, "div")
         .setClassName("page-nav")
@@ -15,11 +15,15 @@ const CheckoutPage:ComponentFunction = (props?: Props) => {
         .setText("Back")
         .setClickAction(backToCart)
         .build()
+    component.addTitleHtml(checkoutNav,'h4')
+        .setClassName("customer-title")
+        .setText(props!.customer)
+        .build()
 
     const totalContainer = component.addContainerHtml(component, "div")
         .setClassName("total-container")
         .build()
-    TotalsComponent({"cartArticles": props!.cartArticles}).mount(totalContainer.element)
+    TotalsComponent({"cartArticles": props!.cartArticles, "customer": props!.customer, "change": props!.change, "cash": props!.cash}).mount(totalContainer.element)
 
     return component
 }

@@ -1,6 +1,6 @@
 "use strict";
 const DB_NAME = "JerrysMartDB";
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 /**
  * This function's purpose is to init an IndexDB at the browser.
  * @returns {OpenDB} A promise which if resolved, creates de DB.

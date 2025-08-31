@@ -6,6 +6,13 @@ function generateUUID() {
         return v.toString(16);
     });
 }
+function formatDateDDMMYYYY(date) {
+    const d = new Date(date);
+    const day = d.getDate().toString().padStart(2, "0");
+    const month = (d.getMonth() + 1).toString().padStart(2, "0");
+    const year = d.getFullYear();
+    return `${day}${month}${year}`;
+}
 /**
  * This function obtains an Array of Article type elements parsing them from each line of a .txt inventory file.
  * @param {string} txt The string obtained from the .txt file.
@@ -43,4 +50,51 @@ function parseInventory(txt) {
 function stringToTxtFile(content, filename = "updated-inventory.txt") {
     const blob = new Blob([content], { type: "text/plain" });
     return new File([blob], filename, { type: "text/plain" });
+}
+async function cartItemToReceiptItem(cartItem) {
+    const price_type = cartItem.customer === "Regular Customer" ? "regular_price" : "member_price";
+    const article = await findArticleByItem(cartItem.item);
+    console.log("found:", article);
+    return {
+        item: cartItem.item,
+        quantity: cartItem.quantity,
+        unit_price: article[price_type],
+        total: cartItem[price_type]
+    };
+}
+function receiptToTxt(receipt) {
+    const dateStr = new Date(receipt.date).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+    const stringId = receipt.id.toString();
+    const transactionId = stringId.padStart(6, "0") || "000000";
+    const itemsLines = receipt.items.map(i => {
+        const total = i.total ?? i.quantity * i.unit_price;
+        return `${i.item} ${i.quantity} $${i.unit_price.toFixed(2)} $${total.toFixed(2)}`;
+    });
+    const divider = "*".repeat(36);
+    let savingsLine = null;
+    if (receipt.savings < 0) {
+        savingsLine = `YOU SAVED: $${receipt.savings.toFixed(2)}!`;
+    }
+    const textString = [
+        dateStr,
+        `TRANSACTION: ${transactionId}`,
+        "ITEM QUANTITY UNIT PRICE TOTAL",
+        ...itemsLines,
+        divider,
+        `TOTAL NUMBER OF ITEMS SOLD: ${receipt.items_amount}`,
+        `SUB-TOTAL: $${receipt.subtotal.toFixed(2)}`,
+        `TAX: $${receipt.tax.toFixed(2)}`,
+        `TOTAL: $${receipt.total.toFixed(2)}`,
+        `CASH: $${receipt.cash.toFixed(2)}`,
+        `CHANGE: $${receipt.change.toFixed(2)}`,
+        divider,
+        savingsLine ?? ''
+    ].filter(Boolean).join("\n");
+    const dateForFileName = formatDateDDMMYYYY(receipt.date);
+    const fileName = `transaction_${transactionId}_${dateForFileName}`;
+    return stringToTxtFile(textString, fileName);
 }

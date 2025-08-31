@@ -8,15 +8,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-function createReceipt(receipt) {
+function createReceipt(cart) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!window.db)
             throw new Error("DB not initialized");
+        const receiptItems = yield Promise.all(cart.items.map(i => cartItemToReceiptItem(i)));
         return new Promise((resolve, reject) => {
             const tx = window.db.transaction("sells", "readwrite");
             const store = tx.objectStore("sells");
+            const receipt = {
+                date: new Date(),
+                items_amount: cart.items.length,
+                subtotal: cart.subtotal,
+                tax: cart.tax,
+                total: cart.total,
+                cash: cart.cash,
+                change: cart.change,
+                items: receiptItems
+            };
             const req = store.add(receipt);
-            req.onsuccess = () => resolve(true);
+            req.onsuccess = () => resolve(receipt);
             req.onerror = () => reject(req.error);
             tx.onerror = () => reject(tx.error);
         });

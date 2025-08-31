@@ -27,3 +27,5 @@ interface RegistrationFormValues {
     confirmPassword: string,
     role: string
 }
+
+type CustomerType = "Rewards Member" | "Regular Customer"

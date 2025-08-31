@@ -1,5 +1,5 @@
 const DB_NAME = "JerrysMartDB"
-const DB_VERSION = 1
+const DB_VERSION = 2
 
 /**
  * This function's purpose is to init an IndexDB at the browser. 
@@ -27,8 +27,8 @@ function openDB(): OpenDB {
         const receiptsStore = db.createObjectStore("sells", {
           keyPath: "id",
           autoIncrement: true,
-        });
-        receiptsStore.createIndex("date", "date", { unique: false });
+        })
+        receiptsStore.createIndex("date", "date", { unique: false })
       }
     };
 

@@ -27,14 +27,7 @@ const RegisterPage: ComponentFunction = () => {
         .setText("Registration")
         .build()
     RegisterForm.onSubmit(async (values) => {
-        try {
-            const result = await UsersServices.createUser(values as RegistrationFormValues)
-            // console.log(result)
-            if (result) window.alert("User created")
-            Router.navigate('/login')
-        } catch (error) {
-            throw new Error("Registration call failed")
-        }
+        
     })
 
     return component
