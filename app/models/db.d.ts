@@ -3,5 +3,5 @@ interface Article {
     quantity: number,
     regular_price: number,
     member_price: number,
-    tax_stratus: "Taxable" | "Tax-Exempt"
+    tax_status: "Taxable" | "Tax-Exempt"
 }

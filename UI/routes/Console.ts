@@ -1,9 +1,10 @@
 const Console:ComponentFunction = () => {
     const component = ComponentFactory.createComponent('Console', 'div')
 
-    const goToCartInit:ButtonFunction = (e) => {
+    const goToCartInit:ButtonFunction = async(e) => {
         e.preventDefault()
-        Router.navigate('/init-cart')
+        const articles = await ArticlesServices.getAllArticles()
+        Router.navigate('/cart', {"articles": articles})
     }
     const goToInventory:ButtonFunction = async (e) => {
         e.preventDefault()

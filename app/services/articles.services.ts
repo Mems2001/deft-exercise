@@ -49,7 +49,7 @@ async function exportInventory():Promise<File|null> {
     const allArticles = await findAllArticles()
   
     const lines = allArticles.map(a => 
-      `${a.item}: ${a.quantity}, $${a.regular_price.toFixed(2)}, $${a.member_price.toFixed(2)}, ${a.tax_stratus}`
+      `${a.item}: ${a.quantity}, $${a.regular_price.toFixed(2)}, $${a.member_price.toFixed(2)}, ${a.tax_status}`
     )
   
     const fileContent = lines.join("\n")

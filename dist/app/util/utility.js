@@ -22,14 +22,14 @@ function parseInventory(txt) {
         const quantity = Number(quantityA.trim());
         const regular_price = Number(regular_priceA.trim().replace("$", ""));
         const member_price = Number(member_priceA.trim().replace("$", ""));
-        const tax_stratus = tax_statusA.trim();
+        const tax_status = tax_statusA.trim();
         return {
             id: generateUUID(),
             item,
             quantity,
             regular_price,
             member_price,
-            tax_stratus,
+            tax_status,
         };
     });
     return articles;

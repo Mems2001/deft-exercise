@@ -10,10 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const Console = () => {
     const component = ComponentFactory.createComponent('Console', 'div');
-    const goToCartInit = (e) => {
+    const goToCartInit = (e) => __awaiter(void 0, void 0, void 0, function* () {
         e.preventDefault();
-        Router.navigate('/init-cart');
-    };
+        const articles = yield ArticlesServices.getAllArticles();
+        Router.navigate('/cart', { "articles": articles });
+    });
     const goToInventory = (e) => __awaiter(void 0, void 0, void 0, function* () {
         e.preventDefault();
         const articles = yield ArticlesServices.getAllArticles();

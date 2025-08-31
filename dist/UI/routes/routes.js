@@ -18,7 +18,7 @@ const routes = [
     },
     {
         path: '/cart',
-        component: () => window.CartPage()
+        component: (props) => window.CartPage(props)
     },
     {
         path: '/inventory',

@@ -151,6 +151,8 @@ class Select extends PseudoHtml {
             this.element.id = builder.id;
         if (builder.key)
             this.element.dataset.key = builder.key;
+        if (builder.options)
+            this.setOptions(builder.options);
         this.addChild(builder.father.element);
     }
     addChild(father_element) {
@@ -158,5 +160,13 @@ class Select extends PseudoHtml {
             throw new Error("A select might always be inserted into a html form element");
         }
         father_element.appendChild(this.element);
+    }
+    setOptions(options) {
+        options.forEach(opt => {
+            const optionEl = document.createElement("option");
+            optionEl.value = opt;
+            optionEl.textContent = opt;
+            this.element.appendChild(optionEl);
+        });
     }
 }

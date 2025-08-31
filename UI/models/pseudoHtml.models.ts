@@ -152,6 +152,7 @@ class Select extends PseudoHtml<HTMLSelectElement> {
         if (builder.class_name) this.element.className = builder.class_name
         if (builder.id) this.element.id = builder.id
         if (builder.key) this.element.dataset.key = builder.key
+        if (builder.options) this.setOptions(builder.options)
         this.addChild(builder.father.element)
     }
 
@@ -161,4 +162,13 @@ class Select extends PseudoHtml<HTMLSelectElement> {
         }
         father_element.appendChild(this.element)
     }
+
+    setOptions(options: string[]) {
+    options.forEach(opt => {
+      const optionEl = document.createElement("option")
+      optionEl.value = opt
+      optionEl.textContent = opt
+      this.element.appendChild(optionEl)
+    })
+  }
 }

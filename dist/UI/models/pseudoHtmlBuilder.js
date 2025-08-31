@@ -148,8 +148,28 @@ class SelectBuilder extends Builder {
         super(father);
         this.tag = "select";
     }
+    setOptions(options) {
+        this.options = options;
+        return this;
+    }
+    setName(name) {
+        this.name = name;
+        return this;
+    }
+    register(select, father) {
+        const name = this.name;
+        if (!name)
+            throw new Error("Select must have a name to be registered in a form");
+        // Set value in the form state
+        father.setValue(name, select.element.value);
+        // Listen to changes
+        select.element.addEventListener("input", () => {
+            father.setValue(name, select.element.value);
+        });
+    }
     build(father) {
         const newSelect = new Select(this);
+        this.register(newSelect, father);
         return newSelect;
     }
 }

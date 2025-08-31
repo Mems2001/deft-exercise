@@ -190,13 +190,39 @@ class InputBuilder extends Builder<"input"> {
 
 class SelectBuilder extends Builder<"select"> {
     tag: "select" = "select"
+    options?: string[]
+    name?:string
 
     constructor (father: Form) {
         super(father)
     }
 
-    build(father: Form): PseudoHtml<HTMLElement> {
+    setOptions(options: string[]) {
+        this.options = options
+        return this
+    }
+
+    setName(name:string) {
+        this.name = name
+        return this
+    }
+
+    private register(select: Select, father: Form): void {
+        const name = this.name
+        if (!name) throw new Error("Select must have a name to be registered in a form");
+
+        // Set value in the form state
+        father.setValue(name, select.element.value)
+
+        // Listen to changes
+        select.element.addEventListener("input", () => {
+            father.setValue(name, select.element.value);
+        })
+    } 
+
+    build(father: Form): PseudoHtml<HTMLSelectElement> {
         const newSelect = new Select(this)
+        this.register(newSelect, father)
 
         return newSelect
     }

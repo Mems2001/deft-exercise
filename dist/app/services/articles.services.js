@@ -55,7 +55,7 @@ function exportInventory() {
             throw new Error("DB not initialized");
         try {
             const allArticles = yield findAllArticles();
-            const lines = allArticles.map(a => `${a.item}: ${a.quantity}, $${a.regular_price.toFixed(2)}, $${a.member_price.toFixed(2)}, ${a.tax_stratus}`);
+            const lines = allArticles.map(a => `${a.item}: ${a.quantity}, $${a.regular_price.toFixed(2)}, $${a.member_price.toFixed(2)}, ${a.tax_status}`);
             const fileContent = lines.join("\n");
             const txtFile = stringToTxtFile(fileContent);
             return txtFile;

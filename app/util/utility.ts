@@ -25,7 +25,7 @@ function parseInventory(txt: string): Article[] {
     const quantity = Number(quantityA.trim())
     const regular_price = Number(regular_priceA.trim().replace("$", ""))
     const member_price = Number(member_priceA.trim().replace("$", ""))
-    const tax_stratus = tax_statusA.trim() as "Taxable" | "Tax-Exempt"
+    const tax_status = tax_statusA.trim() as "Taxable" | "Tax-Exempt"
 
     return {
       id: generateUUID(),
@@ -33,7 +33,7 @@ function parseInventory(txt: string): Article[] {
       quantity,
       regular_price,
       member_price,
-      tax_stratus,
+      tax_status,
     }
   })
 

@@ -18,11 +18,11 @@ function openDB() {
                     autoIncrement: false,
                 });
                 articulosStore.createIndex("item", "item", { unique: false });
-                articulosStore.createIndex("tax_status", "tax_status", { unique: true });
+                articulosStore.createIndex("tax_status", "tax_status", { unique: false });
             }
             // Store de Carritos de compra
-            if (!db.objectStoreNames.contains("carritos")) {
-                const carritosStore = db.createObjectStore("carritos", {
+            if (!db.objectStoreNames.contains("carts")) {
+                const carritosStore = db.createObjectStore("carts", {
                     keyPath: "id",
                     autoIncrement: true,
                 });

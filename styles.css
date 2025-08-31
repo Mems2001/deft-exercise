@@ -167,7 +167,7 @@ p {
     width: 60vw;
 }
 
-.inventory-nav {
+.page-nav {
     width: 60vw;
     display: flex;
     flex-direction: row;
@@ -237,4 +237,29 @@ p {
 .article-tax-status {
     width: 8rem;
     text-align: center;
+}
+
+/* Cart Page */
+
+.cart-page-component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.cart-article-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.add-article-form {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+}
+
+.add-button {
+    height: 3vh;
+    padding: 0 0.5rem
 }

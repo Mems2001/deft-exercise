@@ -11,15 +11,15 @@ const ArticleComponent = (props) => {
         .setClassName("article-quantity")
         .build();
     component.addContainerHtml(component, "p")
-        .setText(typeof article.regular_price === "number" ? `$ ${article.regular_price}` : article.regular_price)
+        .setText(typeof article.regular_price === "number" ? `$ ${article.regular_price.toFixed(2)}` : article.regular_price)
         .setClassName("article-regular-price")
         .build();
     component.addContainerHtml(component, "p")
-        .setText(typeof article.member_price === "number" ? `$ ${article.member_price}` : article.member_price)
+        .setText(typeof article.member_price === "number" ? `$ ${article.member_price.toFixed(2)}` : article.member_price)
         .setClassName("article-member-price")
         .build();
     component.addContainerHtml(component, "p")
-        .setText(article.tax_stratus)
+        .setText(article.tax_status)
         .setClassName("article-tax-status")
         .build();
     return component;
