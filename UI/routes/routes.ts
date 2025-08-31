@@ -16,7 +16,11 @@ const routes:Route[] = [
         component: () => window.Console()
     },
     {
-        path: '/init-cart',
+        path: '/cart',
         component: () => window.CartPage()
+    },
+    {
+        path: '/inventory',
+        component: (props) => InventoryPage(props)
     }
 ]

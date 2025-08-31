@@ -5,9 +5,10 @@ const Console:ComponentFunction = () => {
         e.preventDefault()
         Router.navigate('/init-cart')
     }
-    const goToInventory:ButtonFunction = (e) => {
+    const goToInventory:ButtonFunction = async (e) => {
         e.preventDefault()
-        Router.navigate('/inventory')
+        const articles = await ArticlesServices.getAllArticles()
+        Router.navigate('/inventory', {"articles": articles})
     }
 
     const consoleContainer = component.addContainerHtml(component, "div")

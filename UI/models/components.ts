@@ -1,8 +1,8 @@
-    class Component<TProps extends Props = {}> {
-    protected props?: TProps
+    class Component {
+    private props?: Props
     public element: HTMLElement
 
-    constructor(name: string, mainTag: MainTag, props?: TProps ) {
+    constructor(name: string, mainTag: MainTag, props?: Props ) {
         this.props = props
         this.onInit()
         this.element = this.render(name, mainTag)
@@ -103,9 +103,9 @@
     }
 
     /** Updates the component, e.g., after props change and re-renders in the same parent */
-    update(newProps: TProps) {
-        this.props = { ...this.props, ...newProps };
-        this.mount(this.element.parentElement!);
+    update(outlet: HTMLElement, newProps: Props) {
+        this.props = newProps;
+        this.mount(outlet);
     }
 
     /** Removes the component from the DOM */

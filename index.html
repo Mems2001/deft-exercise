@@ -8,19 +8,37 @@
 </head>
 <body>
     <div id="root"></div>
-    <script src="./dist/app/database/db.js"></script>
 
+    <!-- SERVER -->
+    <script src="./dist/app/database/db.js"></script>
+    <script src="./dist/app/server.js"></script>
     <script>   
         openDB().then(db => {
           window.db = db
-          console.log("DB lista:", db.name);
+          console.log("DB ready", db.name);
         }).catch(err => {
-          console.error("Error abriendo DB:", err);
+          console.error("Error opening DB:", err);
         });
     </script>
 
+    <!-- CONTROLLERS -->
+    <script src="./dist/app/controllers/articles.controllers.js"></script>
+    
+    <!-- SERVICES -->
+    <script src="./dist/app/services/articles.services.js"></script>
+
+    <!-- API ROUTES -->
+    <script src="./dist/app/router/articles.routes.js"></script>
+    <script src="./dist/app/router/index.js"></script>
+
+    <!-- UI ROUTES -->
     <script src="./dist/UI/routes/routes.js"></script>
 
+    <!-- UI SERVICES -->
+    <script src="./dist/UI/services/articlesServices.js"></script>
+
+
+    <!-- COMPONENTS -->
     <script src="./dist/UI/Index.js"></script>
     <script src="./dist/UI/App.js"></script>
     <script src="./dist/UI/features/Header.js"></script>
@@ -29,11 +47,14 @@
     <script src="./dist/UI/routes/RegisterPage.js"></script>
     <script src="./dist/UI/routes/Console.js"></script>
     <script src="./dist/UI/routes/CartPage.js"></script>
+    <script src="./dist/UI/routes/InventoryPage.js"></script>
 
+    <!-- MODELS -->
     <script src="./dist/UI/models/componentFactory.js"></script>
     <script src="./dist/UI/models/components.js"></script>
     <script src="./dist/UI/models/pseudoHtml.models.js"></script>
     <script src="./dist/UI/models/pseudoHtmlBuilder.js"></script>
     <script src="./dist/UI/models/router.model.js"></script>
+
 </body>
 </html>

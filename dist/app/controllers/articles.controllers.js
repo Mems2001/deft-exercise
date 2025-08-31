@@ -8,26 +8,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-// Simulated Server
-function simulateRequest(url_1, method_1) {
-    return __awaiter(this, arguments, void 0, function* (url, method, body = null) {
-        // API
-        if (url.startsWith("api/")) {
-            console.warn(api_routes);
-            const route = api_routes[url];
-            console.log("Getting route", route, url, method);
-            if (route && route[method]) {
-                try {
-                    const result = yield route[method](body !== null && body !== void 0 ? body : null);
-                    return result;
-                }
-                catch (err) {
-                    return { status: 500, message: err.message, err };
-                }
+function getAllArticles() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const res = yield findAllArticles();
+            if (res) {
+                const response = {
+                    data: res,
+                    status: 200
+                };
+                return response;
             }
             else {
-                return { status: 404, message: "Route not found" };
+                const response = {
+                    message: "Articles not found",
+                    status: 404
+                };
+                return response;
             }
+        }
+        catch (err) {
+            const response = {
+                message: "Server Error",
+                status: 500,
+                error: err
+            };
+            return response;
         }
     });
 }

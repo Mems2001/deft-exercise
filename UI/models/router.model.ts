@@ -35,7 +35,7 @@ class Router {
    * This method is in charge to actually render the route component inside the root component. Works both on the class constructor initialization and when navigating through routes.
    * @param path 
    */
-  private updateRoute(path: string) {
+  private updateRoute(path: string, props?:Props) {
     // First it unmounts the current component if there is any (Check components.model.ts for more information about the Component class methods)
     if (this.currentComponent) {
       this.currentComponent.unmount()
@@ -46,13 +46,13 @@ class Router {
     if (this.routes) {
       for (let route of this.routes) {
         if (route.path === path) {
-          this.currentComponent = route.component()
+          this.currentComponent = route.component(props)
           break
         }
       }
     }
      
-    // Finally, in renders the required component through its mount method (Check component.models.ts file for more information about the Component class methods). 
+    // Finally, in renders the required component through its mount method (Check component.models.ts file for more information about the Component class methods).
     this.currentComponent?.mount(this.root)
   }
 
@@ -77,7 +77,7 @@ class Router {
   /**
    * As easy as calling the method and specify the path, it will render the required component inside the root. Works only if the Router was previosly initialized.
    */
-  static navigate(path:string) {
+  static navigate(path:string, props?:Props) {
     // Keeps track of navigation for backwards and fowards navigation purposes
     Router.instance?.setSimulatedPath(path)
 
@@ -85,7 +85,7 @@ class Router {
     if (!Router.instance) {
       throw new Error("Router not initialized. Call Router.init(outlet) first.");
     }
-    Router.instance.updateRoute(path)
+    Router.instance.updateRoute(path, props)
   }
 
 }

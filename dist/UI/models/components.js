@@ -83,9 +83,9 @@ class Component {
         outlet.appendChild(this.element);
     }
     /** Updates the component, e.g., after props change and re-renders in the same parent */
-    update(newProps) {
-        this.props = Object.assign(Object.assign({}, this.props), newProps);
-        this.mount(this.element.parentElement);
+    update(outlet, newProps) {
+        this.props = newProps;
+        this.mount(outlet);
     }
     /** Removes the component from the DOM */
     unmount() {
