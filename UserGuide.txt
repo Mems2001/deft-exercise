@@ -34,7 +34,7 @@ View current inventory immediately
 
 Download updated inventory as .txt
 
-Shopping Cart & Sales
+Shopping Cart & Sales(Sales missing)
 
 Add items to cart from the inventory
 
@@ -102,15 +102,3 @@ Portable and easy to use across devices
 💻 Recommended Browser
 
 Chrome, Firefox, Edge, or any modern browser supporting IndexedDB
-
-✅ Summary
-
-JerrysMart provides a professional, portable, and user-friendly solution for inventory and sales management:
-
-Intuitive interface
-
-Persistent browser database
-
-Downloadable inventory and receipts
-
-Fully offline, standalone, and self-contained
