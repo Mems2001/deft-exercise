@@ -1,5 +1,5 @@
 const DB_NAME = "JerrysMartDB"
-const DB_VERSION = 2
+const DB_VERSION = 3
 
 /**
  * This function's purpose is to init an IndexDB at the browser. 

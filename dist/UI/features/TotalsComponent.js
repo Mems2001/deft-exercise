@@ -51,7 +51,6 @@ const TotalsComponent = (props) => {
         };
         CheckoutServices.generateReceipt(cart)
             .then(res => {
-            console.log(res);
             Router.navigate('/console');
         });
     };
