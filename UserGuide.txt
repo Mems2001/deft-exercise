@@ -11,6 +11,8 @@ Provides intuitive feedback via alerts
 
 Fully portable and easy to use
 
+IMPORTANT: Sell receipt emision is missing for now.
+
 🚀 Getting Started
 Initialization
 

@@ -7,4 +7,10 @@ interface Window {
         createInventory(files:any):Promise<boolean>,
         exportInventory():void
     }
+
+    sellsService: {
+        createReceipt:any,
+        findAllReceipts:any,
+        exportReceipt:any
+    }
 }

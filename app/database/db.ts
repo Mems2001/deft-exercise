@@ -23,23 +23,12 @@ function openDB(): OpenDB {
         articulosStore.createIndex("tax_status", "tax_status", { unique: false });
       }
 
-      // Store de Carritos de compra
-      if (!db.objectStoreNames.contains("carts")) {
-        const carritosStore = db.createObjectStore("carts", {
+      if (!db.objectStoreNames.contains("sells")) {
+        const receiptsStore = db.createObjectStore("sells", {
           keyPath: "id",
           autoIncrement: true,
         });
-        carritosStore.createIndex("usuarioId", "usuarioId", { unique: false });
-      }
-
-      // Store de Recibos de venta
-      if (!db.objectStoreNames.contains("recibos")) {
-        const recibosStore = db.createObjectStore("recibos", {
-          keyPath: "id",
-          autoIncrement: true,
-        });
-        recibosStore.createIndex("usuarioId", "usuarioId", { unique: false });
-        recibosStore.createIndex("fecha", "fecha", { unique: false });
+        receiptsStore.createIndex("date", "date", { unique: false });
       }
     };
 
