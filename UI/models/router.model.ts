@@ -8,11 +8,16 @@ class Router {
   private root: HTMLElement
   private currentComponent: Component|null = null
   private routes: Route[]|null = null
+  private simulatedPath:string = '/console'
 
   constructor (root: HTMLElement, routes: Route[]) {
     this.root = root
     this.routes = routes
     this.initRouter()
+  }
+
+  setSimulatedPath(path:string) {
+    return this.simulatedPath = path
   }
 
   /**
@@ -55,7 +60,7 @@ class Router {
    * This method is for internal initialization only. It is in charge to render the initial route ('/' if Router was initialized within the App component as sugested). It also keeps track of any pathname changes due to navigation.
    */
   private initRouter() {
-    this.updateRoute(location.pathname)
+    this.updateRoute(this.simulatedPath)
 
     window.addEventListener('popstate', () => this.updateRoute(location.pathname))
 
@@ -74,7 +79,7 @@ class Router {
    */
   static navigate(path:string) {
     // Keeps track of navigation for backwards and fowards navigation purposes
-    history.pushState({}, '', path)
+    Router.instance?.setSimulatedPath(path)
 
     // Prevents the user from calling this static method without initializing a Router first.
     if (!Router.instance) {
@@ -84,3 +89,5 @@ class Router {
   }
 
 }
+
+window.Router = Router

@@ -1,4 +1,5 @@
-const routes:Route[] = [
+"use strict";
+const routes = [
     {
         path: '/',
         component: () => window.Home()
@@ -19,4 +20,4 @@ const routes:Route[] = [
         path: '/init-cart',
         component: () => window.CartPage()
     }
-]
+];

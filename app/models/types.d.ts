@@ -1,0 +1,1 @@
+type OpenDB = Promise<IDBDatabase>

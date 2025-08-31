@@ -1,12 +1,14 @@
 interface Window {
-  App: ComponentFunction,
-  routes: Route[],
-  Component: Component,
-  Header: ComponentFunction,
-  Home: ComponentFunction,
-  LoginPage: ComponentFunction,
-  RegisterPage: ComponentFunction,
-  Console: ComponentFunction
+    App: ComponentFunction,
+    Header: ComponentFunction,
+    Home: ComponentFunction,
+    LoginPage: ComponentFunction,
+    RegisterPage: ComponentFunction,
+    Console: ComponentFunction,
+    CartPage: ComponentFunction,
+    
+    routes: Route[]
+    Router: typeof Router
 }
 
 interface Route {

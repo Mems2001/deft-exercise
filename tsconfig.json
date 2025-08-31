@@ -9,5 +9,5 @@
     "noImplicitAny": false,
     "strictNullChecks": true
   },
-  "include": ["UI/**/*"]         // Only compile files in the src folder
+  "include": ["UI/**/*", "app/**/*"]      
 }

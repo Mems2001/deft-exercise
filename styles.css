@@ -107,5 +107,34 @@ body {
 
 /* ---> Console <--- */
 .console-container {
-    background-color: red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    
+    height: fit-content;
+    width: 50vh;
+
+    border: 1px solid black;
+
+    padding: 1rem;
+}
+
+.console-title {
+    text-align: center;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+
+    width: 100%;
+
+    padding-bottom: 1rem;
+}
+
+.console-button {
+    height: 5vh;
 }

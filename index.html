@@ -8,12 +8,32 @@
 </head>
 <body>
     <div id="root"></div>
-    <script src="./dist/Index.js"></script>
-    <script src="./dist/App.js"></script>
-    <script src="./dist/Header.js"></script>
-    <script src="./dist/Home.js"></script>
-    <script src="./dist/LoginPage.js"></script>
-    <script src="./dist/RegisterPage.js"></script>
-    <script src="./dist/Console.js"></script>
+    <script src="./dist/app/database/db.js"></script>
+
+    <script>   
+        openDB().then(db => {
+          window.db = db
+          console.log("DB lista:", db.name);
+        }).catch(err => {
+          console.error("Error abriendo DB:", err);
+        });
+    </script>
+
+    <script src="./dist/UI/routes/routes.js"></script>
+
+    <script src="./dist/UI/Index.js"></script>
+    <script src="./dist/UI/App.js"></script>
+    <script src="./dist/UI/features/Header.js"></script>
+    <script src="./dist/UI/routes/Home.js"></script>
+    <script src="./dist/UI/routes/LoginPage.js"></script>
+    <script src="./dist/UI/routes/RegisterPage.js"></script>
+    <script src="./dist/UI/routes/Console.js"></script>
+    <script src="./dist/UI/routes/CartPage.js"></script>
+
+    <script src="./dist/UI/models/componentFactory.js"></script>
+    <script src="./dist/UI/models/components.js"></script>
+    <script src="./dist/UI/models/pseudoHtml.models.js"></script>
+    <script src="./dist/UI/models/pseudoHtmlBuilder.js"></script>
+    <script src="./dist/UI/models/router.model.js"></script>
 </body>
 </html>
